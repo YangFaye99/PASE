@@ -58,7 +58,7 @@ typedef struct PASE_MG_SOLVER_PRIVATE_
     int num_given_eigs;
     /* 最多算的特征对个数 */
     int max_nev;
-    /* 在实际计算的时候求解的特征对个数（在本算法中一般设置为 nev+5 和2*nev的较小值）*/
+    /* 在实际计算的时候求解的特征对个数（在本算法中一般设置为2*nev的较小值）*/
     int pase_nev;
     /* 已经收敛的特征对个数 */
     int conv_nev;

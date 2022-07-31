@@ -94,6 +94,10 @@ int PASE_Mg_solve(PASE_MG_SOLVER solver)
         solver->error_estimate_time -= gcge_ops->GetWtime();
         PASE_Mg_error_estimate(solver);
         solver->error_estimate_time += gcge_ops->GetWtime();
+        if (solver->conv_nev >= solver->user_nev)
+        {
+            break;
+        }
     }
 }
 
@@ -264,9 +268,9 @@ int PASE_Mg_prolong_from_pase_aux_Solution(PASE_MG_SOLVER solver, int object_lev
         int num = pase_nev * pase_nev;
         dcopy(&num, gamma, &i_one, aux_u->aux_h_tmp, &i_one);
         dscal(&num, &m_one, aux_u->aux_h_tmp, &i_one);
-        mv_s[0] = 0;
+        mv_s[0] = nlock_direct;
         mv_e[0] = pase_nev;
-        mv_s[1] = 0;
+        mv_s[1] = nlock_direct;
         mv_e[1] = pase_nev;
         gcge_ops->MultiVecLinearComb(B_inv_b, u, 0, mv_s, mv_e,
                                      aux_u->aux_h_tmp, pase_nev, &p_one, 0, gcge_ops);

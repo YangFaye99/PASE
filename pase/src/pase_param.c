@@ -15,7 +15,7 @@ void PASE_PARAMETER_Create(PASE_PARAMETER *param, int num_levels, int nev)
     (*param)->aux_coarse_level = num_levels - 1;
     (*param)->aux_fine_level = 0;
 
-    (*param)->max_cycle_count = 5;
+    (*param)->max_cycle_count = 10;
     (*param)->max_pre_count = 2;
     (*param)->max_post_count = 2;
     (*param)->max_direct_count = 20;
