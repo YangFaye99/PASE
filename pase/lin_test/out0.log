@@ -1,0 +1,697 @@
+mpirun -np 8   ./test.exe 
+[MatrixRead] matrix size: 40000 x 40000
+[petsc_gamg] multigrid 层数: 5 levels
+·            size of level 0: 40000 x 40000
+·             |  interpolation 0: 40000 x 5741
+·            size of level 1: 5741 x 5741
+·             |  interpolation 1: 5741 x 1012
+·            size of level 2: 1012 x 1012
+·             |  interpolation 2: 1012 x 83
+·            size of level 3: 83 x 83
+·             |  interpolation 3: 83 x 7
+·            size of level 4: 7 x 7
+[aux_level] 1
+
++++++++++++++++++++++++++++++++++++++++++++[PRE SMOOTH 0]+++++++++++++++++++++++++++++++++++++++++++++++++++
+BlockPCG: initial residual[0] = 5.0335e+02
+niter = 1, num_unconv = 1, residual[0] = 1.5028e+02
+niter = 2, num_unconv = 1, residual[0] = 6.8202e+01
+niter = 3, num_unconv = 1, residual[0] = 4.2946e+01
+niter = 4, num_unconv = 1, residual[0] = 2.9448e+01
+niter = 5, num_unconv = 1, residual[0] = 2.3080e+01
+BlockPCG: niter = 5, num_unconv = 1, residual[0] = 2.3080e+01
+|--BPCG----------------------------
+|allreduce  axpby  inner_prod  matvec
+|0.00	0.00	0.00	0.00
+|1.61%	31.20%	7.16%	60.03%
+|--BPCG----------------------------
+
++++++++++++++++++++++++++++++++++++++++++++[AUX 0]+++++++++++++++++++++++++++++++++++++++++++++++++++
+BlockPCG: initial residual[0] = 8.9830e+02
+niter = 1, num_unconv = 1, residual[0] = 4.2880e-01
+niter = 2, num_unconv = 1, residual[0] = 2.1467e-01
+niter = 3, num_unconv = 1, residual[0] = 1.3950e-01
+niter = 4, num_unconv = 1, residual[0] = 1.3191e-01
+niter = 5, num_unconv = 1, residual[0] = 4.2555e-01
+BlockPCG: niter = 5, num_unconv = 1, residual[0] = 4.2555e-01
+niter = 6, num_unconv = 1, residual[0] = 1.6203e-01
+niter = 7, num_unconv = 1, residual[0] = 1.8625e-01
+niter = 8, num_unconv = 1, residual[0] = 2.1868e-01
+niter = 9, num_unconv = 1, residual[0] = 2.2836e-01
+niter = 10, num_unconv = 1, residual[0] = 2.0602e-01
+BlockPCG: niter = 10, num_unconv = 1, residual[0] = 2.0602e-01
+niter = 11, num_unconv = 1, residual[0] = 1.1303e+00
+niter = 12, num_unconv = 1, residual[0] = 1.6335e-01
+niter = 13, num_unconv = 1, residual[0] = 1.1611e-01
+niter = 14, num_unconv = 1, residual[0] = 7.5413e-02
+niter = 15, num_unconv = 1, residual[0] = 4.8898e-02
+BlockPCG: niter = 15, num_unconv = 1, residual[0] = 4.8898e-02
+niter = 16, num_unconv = 1, residual[0] = 3.1116e-02
+niter = 17, num_unconv = 1, residual[0] = 1.1747e-01
+niter = 18, num_unconv = 1, residual[0] = 1.9497e-02
+niter = 19, num_unconv = 1, residual[0] = 1.1817e-02
+niter = 20, num_unconv = 1, residual[0] = 7.6133e-03
+BlockPCG: niter = 20, num_unconv = 1, residual[0] = 7.6133e-03
+niter = 21, num_unconv = 1, residual[0] = 4.8321e-03
+niter = 22, num_unconv = 1, residual[0] = 2.9986e-03
+niter = 23, num_unconv = 1, residual[0] = 5.2359e-02
+niter = 24, num_unconv = 1, residual[0] = 1.8585e-03
+niter = 25, num_unconv = 1, residual[0] = 1.1532e-03
+BlockPCG: niter = 25, num_unconv = 1, residual[0] = 1.1532e-03
+niter = 26, num_unconv = 1, residual[0] = 7.1510e-04
+niter = 27, num_unconv = 1, residual[0] = 4.3894e-04
+niter = 28, num_unconv = 1, residual[0] = 2.7422e-04
+niter = 29, num_unconv = 1, residual[0] = 8.2258e-04
+niter = 30, num_unconv = 1, residual[0] = 1.7247e-04
+BlockPCG: niter = 30, num_unconv = 1, residual[0] = 1.7247e-04
+niter = 31, num_unconv = 1, residual[0] = 1.0714e-04
+niter = 32, num_unconv = 1, residual[0] = 6.8333e-05
+niter = 33, num_unconv = 1, residual[0] = 4.2521e-05
+niter = 34, num_unconv = 1, residual[0] = 2.5772e-05
+niter = 35, num_unconv = 1, residual[0] = 2.8255e-04
+BlockPCG: niter = 35, num_unconv = 1, residual[0] = 2.8255e-04
+niter = 36, num_unconv = 1, residual[0] = 1.5951e-05
+niter = 37, num_unconv = 1, residual[0] = 9.9857e-06
+niter = 38, num_unconv = 1, residual[0] = 6.3555e-06
+niter = 39, num_unconv = 1, residual[0] = 3.9335e-06
+niter = 40, num_unconv = 1, residual[0] = 2.4309e-06
+BlockPCG: niter = 40, num_unconv = 1, residual[0] = 2.4309e-06
+niter = 41, num_unconv = 1, residual[0] = 3.2014e-05
+niter = 42, num_unconv = 1, residual[0] = 1.5210e-06
+niter = 43, num_unconv = 1, residual[0] = 9.2614e-07
+niter = 44, num_unconv = 1, residual[0] = 5.7979e-07
+niter = 45, num_unconv = 1, residual[0] = 3.6177e-07
+BlockPCG: niter = 45, num_unconv = 1, residual[0] = 3.6177e-07
+niter = 46, num_unconv = 1, residual[0] = 2.3094e-07
+niter = 47, num_unconv = 1, residual[0] = 1.2927e-06
+niter = 48, num_unconv = 1, residual[0] = 1.4272e-07
+niter = 49, num_unconv = 1, residual[0] = 8.6730e-08
+niter = 50, num_unconv = 1, residual[0] = 5.2965e-08
+BlockPCG: niter = 50, num_unconv = 1, residual[0] = 5.2965e-08
+niter = 51, num_unconv = 1, residual[0] = 3.3060e-08
+niter = 52, num_unconv = 1, residual[0] = 7.0274e-08
+niter = 53, num_unconv = 1, residual[0] = 2.1591e-08
+niter = 54, num_unconv = 1, residual[0] = 1.2980e-08
+niter = 55, num_unconv = 1, residual[0] = 8.1106e-09
+BlockPCG: niter = 55, num_unconv = 0, residual[0] = 8.1106e-09
+|--BPCG----------------------------
+|allreduce  axpby  inner_prod  matvec
+|0.00	0.00	0.00	0.01
+|7.57%	10.08%	8.14%	74.21%
+|--BPCG----------------------------
+
++++++++++++++++++++++++++++++++++++++++++++[POST SMOOTH 0]+++++++++++++++++++++++++++++++++++++++++++++++++++
+BlockPCG: initial residual[0] = 5.4731e-01
+niter = 1, num_unconv = 1, residual[0] = 3.1024e-01
+niter = 2, num_unconv = 1, residual[0] = 2.2990e-01
+niter = 3, num_unconv = 1, residual[0] = 1.6784e-01
+niter = 4, num_unconv = 1, residual[0] = 1.2813e-01
+niter = 5, num_unconv = 1, residual[0] = 9.5411e-02
+BlockPCG: niter = 5, num_unconv = 1, residual[0] = 9.5411e-02
+|--BPCG----------------------------
+|allreduce  axpby  inner_prod  matvec
+|0.00	0.00	0.00	0.00
+|1.25%	28.91%	4.97%	64.88%
+|--BPCG----------------------------
+
++++++++++++++++++++++++++++++++++++++++++++[PRE SMOOTH 1]+++++++++++++++++++++++++++++++++++++++++++++++++++
+BlockPCG: initial residual[0] = 9.5411e-02
+niter = 1, num_unconv = 1, residual[0] = 6.8421e-02
+niter = 2, num_unconv = 1, residual[0] = 6.4730e-02
+niter = 3, num_unconv = 1, residual[0] = 5.9888e-02
+niter = 4, num_unconv = 1, residual[0] = 5.2961e-02
+niter = 5, num_unconv = 1, residual[0] = 4.8897e-02
+BlockPCG: niter = 5, num_unconv = 1, residual[0] = 4.8897e-02
+|--BPCG----------------------------
+|allreduce  axpby  inner_prod  matvec
+|0.00	0.00	0.00	0.00
+|1.18%	27.89%	5.24%	65.69%
+|--BPCG----------------------------
+
++++++++++++++++++++++++++++++++++++++++++++[AUX 1]+++++++++++++++++++++++++++++++++++++++++++++++++++
+BlockPCG: initial residual[0] = 1.4694e-02
+niter = 1, num_unconv = 1, residual[0] = 1.4019e-02
+niter = 2, num_unconv = 1, residual[0] = 7.1888e-03
+niter = 3, num_unconv = 1, residual[0] = 3.9735e-03
+niter = 4, num_unconv = 1, residual[0] = 2.4180e-03
+niter = 5, num_unconv = 1, residual[0] = 1.7425e-03
+BlockPCG: niter = 5, num_unconv = 1, residual[0] = 1.7425e-03
+niter = 6, num_unconv = 1, residual[0] = 1.2016e-03
+niter = 7, num_unconv = 1, residual[0] = 1.0427e-03
+niter = 8, num_unconv = 1, residual[0] = 1.1000e-03
+niter = 9, num_unconv = 1, residual[0] = 1.3174e-03
+niter = 10, num_unconv = 1, residual[0] = 1.7717e-03
+BlockPCG: niter = 10, num_unconv = 1, residual[0] = 1.7717e-03
+niter = 11, num_unconv = 1, residual[0] = 2.5380e-03
+niter = 12, num_unconv = 1, residual[0] = 3.6151e-03
+niter = 13, num_unconv = 1, residual[0] = 4.8904e-03
+niter = 14, num_unconv = 1, residual[0] = 5.5793e-03
+niter = 15, num_unconv = 1, residual[0] = 8.5290e-03
+BlockPCG: niter = 15, num_unconv = 1, residual[0] = 8.5290e-03
+niter = 16, num_unconv = 1, residual[0] = 5.7543e-03
+niter = 17, num_unconv = 1, residual[0] = 3.9457e-03
+niter = 18, num_unconv = 1, residual[0] = 2.7475e-03
+niter = 19, num_unconv = 1, residual[0] = 1.7629e-03
+niter = 20, num_unconv = 1, residual[0] = 1.0992e-03
+BlockPCG: niter = 20, num_unconv = 1, residual[0] = 1.0992e-03
+niter = 21, num_unconv = 1, residual[0] = 6.6107e-04
+niter = 22, num_unconv = 1, residual[0] = 4.0515e-04
+niter = 23, num_unconv = 1, residual[0] = 2.5164e-04
+niter = 24, num_unconv = 1, residual[0] = 1.5855e-04
+niter = 25, num_unconv = 1, residual[0] = 9.9508e-05
+BlockPCG: niter = 25, num_unconv = 1, residual[0] = 9.9508e-05
+niter = 26, num_unconv = 1, residual[0] = 6.1790e-05
+niter = 27, num_unconv = 1, residual[0] = 3.9085e-05
+niter = 28, num_unconv = 1, residual[0] = 2.4805e-05
+niter = 29, num_unconv = 1, residual[0] = 1.9544e-05
+niter = 30, num_unconv = 1, residual[0] = 2.0370e-05
+BlockPCG: niter = 30, num_unconv = 1, residual[0] = 2.0370e-05
+niter = 31, num_unconv = 1, residual[0] = 8.9637e-06
+niter = 32, num_unconv = 1, residual[0] = 5.5113e-06
+niter = 33, num_unconv = 1, residual[0] = 3.4833e-06
+niter = 34, num_unconv = 1, residual[0] = 2.1192e-06
+niter = 35, num_unconv = 1, residual[0] = 1.2967e-06
+BlockPCG: niter = 35, num_unconv = 1, residual[0] = 1.2967e-06
+niter = 36, num_unconv = 1, residual[0] = 7.9062e-07
+niter = 37, num_unconv = 1, residual[0] = 4.8291e-07
+niter = 38, num_unconv = 1, residual[0] = 3.0709e-07
+niter = 39, num_unconv = 1, residual[0] = 1.9246e-07
+niter = 40, num_unconv = 1, residual[0] = 1.2560e-07
+BlockPCG: niter = 40, num_unconv = 1, residual[0] = 1.2560e-07
+niter = 41, num_unconv = 1, residual[0] = 7.8839e-08
+niter = 42, num_unconv = 1, residual[0] = 4.9079e-08
+niter = 43, num_unconv = 1, residual[0] = 3.2878e-08
+niter = 44, num_unconv = 1, residual[0] = 4.9015e-08
+niter = 45, num_unconv = 1, residual[0] = 1.7749e-08
+BlockPCG: niter = 45, num_unconv = 1, residual[0] = 1.7749e-08
+niter = 46, num_unconv = 1, residual[0] = 1.0661e-08
+niter = 47, num_unconv = 1, residual[0] = 6.4678e-09
+|--BPCG----------------------------
+|allreduce  axpby  inner_prod  matvec
+|0.00	0.00	0.00	0.00
+|6.20%	11.24%	8.83%	73.74%
+|--BPCG----------------------------
+
++++++++++++++++++++++++++++++++++++++++++++[POST SMOOTH 1]+++++++++++++++++++++++++++++++++++++++++++++++++++
+BlockPCG: initial residual[0] = 4.3688e-02
+niter = 1, num_unconv = 1, residual[0] = 2.4374e-02
+niter = 2, num_unconv = 1, residual[0] = 1.8840e-02
+niter = 3, num_unconv = 1, residual[0] = 1.4534e-02
+niter = 4, num_unconv = 1, residual[0] = 1.1928e-02
+niter = 5, num_unconv = 1, residual[0] = 9.4260e-03
+BlockPCG: niter = 5, num_unconv = 1, residual[0] = 9.4260e-03
+|--BPCG----------------------------
+|allreduce  axpby  inner_prod  matvec
+|0.00	0.00	0.00	0.00
+|1.54%	27.78%	5.11%	65.58%
+|--BPCG----------------------------
+
++++++++++++++++++++++++++++++++++++++++++++[PRE SMOOTH 2]+++++++++++++++++++++++++++++++++++++++++++++++++++
+BlockPCG: initial residual[0] = 9.4260e-03
+niter = 1, num_unconv = 1, residual[0] = 6.9991e-03
+niter = 2, num_unconv = 1, residual[0] = 6.6533e-03
+niter = 3, num_unconv = 1, residual[0] = 6.5215e-03
+niter = 4, num_unconv = 1, residual[0] = 6.3273e-03
+niter = 5, num_unconv = 1, residual[0] = 6.9213e-03
+BlockPCG: niter = 5, num_unconv = 1, residual[0] = 6.9213e-03
+|--BPCG----------------------------
+|allreduce  axpby  inner_prod  matvec
+|0.00	0.00	0.00	0.00
+|1.56%	27.62%	5.13%	65.68%
+|--BPCG----------------------------
+
++++++++++++++++++++++++++++++++++++++++++++[AUX 2]+++++++++++++++++++++++++++++++++++++++++++++++++++
+BlockPCG: initial residual[0] = 1.3931e-03
+niter = 1, num_unconv = 1, residual[0] = 1.6530e-03
+niter = 2, num_unconv = 1, residual[0] = 8.0205e-04
+niter = 3, num_unconv = 1, residual[0] = 4.0691e-04
+niter = 4, num_unconv = 1, residual[0] = 2.2313e-04
+niter = 5, num_unconv = 1, residual[0] = 1.6892e-04
+BlockPCG: niter = 5, num_unconv = 1, residual[0] = 1.6892e-04
+niter = 6, num_unconv = 1, residual[0] = 1.2361e-04
+niter = 7, num_unconv = 1, residual[0] = 1.1615e-04
+niter = 8, num_unconv = 1, residual[0] = 1.4343e-04
+niter = 9, num_unconv = 1, residual[0] = 1.9242e-04
+niter = 10, num_unconv = 1, residual[0] = 2.7009e-04
+BlockPCG: niter = 10, num_unconv = 1, residual[0] = 2.7009e-04
+niter = 11, num_unconv = 1, residual[0] = 3.9471e-04
+niter = 12, num_unconv = 1, residual[0] = 5.2529e-04
+niter = 13, num_unconv = 1, residual[0] = 6.1788e-04
+niter = 14, num_unconv = 1, residual[0] = 5.8914e-04
+niter = 15, num_unconv = 1, residual[0] = 9.2765e-04
+BlockPCG: niter = 15, num_unconv = 1, residual[0] = 9.2765e-04
+niter = 16, num_unconv = 1, residual[0] = 4.4810e-04
+niter = 17, num_unconv = 1, residual[0] = 2.8812e-04
+niter = 18, num_unconv = 1, residual[0] = 1.8760e-04
+niter = 19, num_unconv = 1, residual[0] = 1.1804e-04
+niter = 20, num_unconv = 1, residual[0] = 7.1709e-05
+BlockPCG: niter = 20, num_unconv = 1, residual[0] = 7.1709e-05
+niter = 21, num_unconv = 1, residual[0] = 4.2898e-05
+niter = 22, num_unconv = 1, residual[0] = 2.6026e-05
+niter = 23, num_unconv = 1, residual[0] = 1.6465e-05
+niter = 24, num_unconv = 1, residual[0] = 1.0446e-05
+niter = 25, num_unconv = 1, residual[0] = 6.5144e-06
+BlockPCG: niter = 25, num_unconv = 1, residual[0] = 6.5144e-06
+niter = 26, num_unconv = 1, residual[0] = 3.9715e-06
+niter = 27, num_unconv = 1, residual[0] = 2.5256e-06
+niter = 28, num_unconv = 1, residual[0] = 1.6036e-06
+niter = 29, num_unconv = 1, residual[0] = 1.0142e-06
+niter = 30, num_unconv = 1, residual[0] = 7.5957e-07
+BlockPCG: niter = 30, num_unconv = 1, residual[0] = 7.5957e-07
+niter = 31, num_unconv = 1, residual[0] = 8.3011e-07
+niter = 32, num_unconv = 1, residual[0] = 3.7144e-07
+niter = 33, num_unconv = 1, residual[0] = 2.3458e-07
+niter = 34, num_unconv = 1, residual[0] = 1.4891e-07
+niter = 35, num_unconv = 1, residual[0] = 9.2585e-08
+BlockPCG: niter = 35, num_unconv = 1, residual[0] = 9.2585e-08
+niter = 36, num_unconv = 1, residual[0] = 5.6469e-08
+niter = 37, num_unconv = 1, residual[0] = 3.4724e-08
+niter = 38, num_unconv = 1, residual[0] = 2.1328e-08
+niter = 39, num_unconv = 1, residual[0] = 1.3259e-08
+niter = 40, num_unconv = 1, residual[0] = 8.5571e-09
+BlockPCG: niter = 40, num_unconv = 0, residual[0] = 8.5571e-09
+|--BPCG----------------------------
+|allreduce  axpby  inner_prod  matvec
+|0.00	0.00	0.00	0.00
+|4.80%	11.19%	9.28%	74.72%
+|--BPCG----------------------------
+
++++++++++++++++++++++++++++++++++++++++++++[POST SMOOTH 2]+++++++++++++++++++++++++++++++++++++++++++++++++++
+BlockPCG: initial residual[0] = 7.4949e-03
+niter = 1, num_unconv = 1, residual[0] = 3.9635e-03
+niter = 2, num_unconv = 1, residual[0] = 2.8356e-03
+niter = 3, num_unconv = 1, residual[0] = 2.0562e-03
+niter = 4, num_unconv = 1, residual[0] = 1.6015e-03
+niter = 5, num_unconv = 1, residual[0] = 1.3993e-03
+BlockPCG: niter = 5, num_unconv = 1, residual[0] = 1.3993e-03
+|--BPCG----------------------------
+|allreduce  axpby  inner_prod  matvec
+|0.00	0.00	0.00	0.00
+|1.52%	27.56%	5.55%	65.37%
+|--BPCG----------------------------
+
++++++++++++++++++++++++++++++++++++++++++++[PRE SMOOTH 3]+++++++++++++++++++++++++++++++++++++++++++++++++++
+BlockPCG: initial residual[0] = 1.3993e-03
+niter = 1, num_unconv = 1, residual[0] = 1.1330e-03
+niter = 2, num_unconv = 1, residual[0] = 1.2358e-03
+niter = 3, num_unconv = 1, residual[0] = 1.3172e-03
+niter = 4, num_unconv = 1, residual[0] = 1.3095e-03
+niter = 5, num_unconv = 1, residual[0] = 1.3811e-03
+BlockPCG: niter = 5, num_unconv = 1, residual[0] = 1.3811e-03
+|--BPCG----------------------------
+|allreduce  axpby  inner_prod  matvec
+|0.00	0.00	0.00	0.00
+|1.27%	28.04%	5.10%	65.60%
+|--BPCG----------------------------
+
++++++++++++++++++++++++++++++++++++++++++++[AUX 3]+++++++++++++++++++++++++++++++++++++++++++++++++++
+BlockPCG: initial residual[0] = 2.1678e-04
+niter = 1, num_unconv = 1, residual[0] = 2.9809e-04
+niter = 2, num_unconv = 1, residual[0] = 1.2292e-04
+niter = 3, num_unconv = 1, residual[0] = 7.7025e-05
+niter = 4, num_unconv = 1, residual[0] = 3.7848e-05
+niter = 5, num_unconv = 1, residual[0] = 2.3707e-05
+BlockPCG: niter = 5, num_unconv = 1, residual[0] = 2.3707e-05
+niter = 6, num_unconv = 1, residual[0] = 1.8413e-05
+niter = 7, num_unconv = 1, residual[0] = 1.5291e-05
+niter = 8, num_unconv = 1, residual[0] = 1.5287e-05
+niter = 9, num_unconv = 1, residual[0] = 2.0081e-05
+niter = 10, num_unconv = 1, residual[0] = 2.8409e-05
+BlockPCG: niter = 10, num_unconv = 1, residual[0] = 2.8409e-05
+niter = 11, num_unconv = 1, residual[0] = 3.9608e-05
+niter = 12, num_unconv = 1, residual[0] = 5.6705e-05
+niter = 13, num_unconv = 1, residual[0] = 7.6079e-05
+niter = 14, num_unconv = 1, residual[0] = 7.9288e-05
+niter = 15, num_unconv = 1, residual[0] = 1.1683e-04
+BlockPCG: niter = 15, num_unconv = 1, residual[0] = 1.1683e-04
+niter = 16, num_unconv = 1, residual[0] = 6.6963e-05
+niter = 17, num_unconv = 1, residual[0] = 4.3329e-05
+niter = 18, num_unconv = 1, residual[0] = 2.8906e-05
+niter = 19, num_unconv = 1, residual[0] = 1.7977e-05
+niter = 20, num_unconv = 1, residual[0] = 1.1011e-05
+BlockPCG: niter = 20, num_unconv = 1, residual[0] = 1.1011e-05
+niter = 21, num_unconv = 1, residual[0] = 6.6997e-06
+niter = 22, num_unconv = 1, residual[0] = 4.1598e-06
+niter = 23, num_unconv = 1, residual[0] = 2.6964e-06
+niter = 24, num_unconv = 1, residual[0] = 1.6721e-06
+niter = 25, num_unconv = 1, residual[0] = 1.0279e-06
+BlockPCG: niter = 25, num_unconv = 1, residual[0] = 1.0279e-06
+niter = 26, num_unconv = 1, residual[0] = 6.2922e-07
+niter = 27, num_unconv = 1, residual[0] = 4.0110e-07
+niter = 28, num_unconv = 1, residual[0] = 2.5461e-07
+niter = 29, num_unconv = 1, residual[0] = 2.8560e-07
+niter = 30, num_unconv = 1, residual[0] = 1.6007e-07
+BlockPCG: niter = 30, num_unconv = 1, residual[0] = 1.6007e-07
+niter = 31, num_unconv = 1, residual[0] = 8.8880e-08
+niter = 32, num_unconv = 1, residual[0] = 5.4561e-08
+niter = 33, num_unconv = 1, residual[0] = 3.4490e-08
+niter = 34, num_unconv = 1, residual[0] = 2.2167e-08
+niter = 35, num_unconv = 1, residual[0] = 1.3955e-08
+BlockPCG: niter = 35, num_unconv = 1, residual[0] = 1.3955e-08
+niter = 36, num_unconv = 1, residual[0] = 8.5751e-09
+|--BPCG----------------------------
+|allreduce  axpby  inner_prod  matvec
+|0.00	0.00	0.00	0.00
+|5.51%	11.18%	9.29%	74.02%
+|--BPCG----------------------------
+
++++++++++++++++++++++++++++++++++++++++++++[POST SMOOTH 3]+++++++++++++++++++++++++++++++++++++++++++++++++++
+BlockPCG: initial residual[0] = 1.5085e-03
+niter = 1, num_unconv = 1, residual[0] = 7.7686e-04
+niter = 2, num_unconv = 1, residual[0] = 5.3240e-04
+niter = 3, num_unconv = 1, residual[0] = 3.6675e-04
+niter = 4, num_unconv = 1, residual[0] = 2.5702e-04
+niter = 5, num_unconv = 1, residual[0] = 2.2445e-04
+BlockPCG: niter = 5, num_unconv = 1, residual[0] = 2.2445e-04
+|--BPCG----------------------------
+|allreduce  axpby  inner_prod  matvec
+|0.00	0.00	0.00	0.00
+|1.09%	27.90%	5.69%	65.32%
+|--BPCG----------------------------
+
++++++++++++++++++++++++++++++++++++++++++++[PRE SMOOTH 4]+++++++++++++++++++++++++++++++++++++++++++++++++++
+BlockPCG: initial residual[0] = 2.2445e-04
+niter = 1, num_unconv = 1, residual[0] = 1.9622e-04
+niter = 2, num_unconv = 1, residual[0] = 2.3674e-04
+niter = 3, num_unconv = 1, residual[0] = 2.6175e-04
+niter = 4, num_unconv = 1, residual[0] = 2.5906e-04
+niter = 5, num_unconv = 1, residual[0] = 2.6209e-04
+BlockPCG: niter = 5, num_unconv = 1, residual[0] = 2.6209e-04
+|--BPCG----------------------------
+|allreduce  axpby  inner_prod  matvec
+|0.00	0.00	0.00	0.00
+|1.29%	28.22%	5.17%	65.32%
+|--BPCG----------------------------
+
++++++++++++++++++++++++++++++++++++++++++++[AUX 4]+++++++++++++++++++++++++++++++++++++++++++++++++++
+BlockPCG: initial residual[0] = 3.8004e-05
+niter = 1, num_unconv = 1, residual[0] = 5.7802e-05
+niter = 2, num_unconv = 1, residual[0] = 2.0912e-05
+niter = 3, num_unconv = 1, residual[0] = 1.4213e-05
+niter = 4, num_unconv = 1, residual[0] = 7.2826e-06
+niter = 5, num_unconv = 1, residual[0] = 4.1315e-06
+BlockPCG: niter = 5, num_unconv = 1, residual[0] = 4.1315e-06
+niter = 6, num_unconv = 1, residual[0] = 2.8249e-06
+niter = 7, num_unconv = 1, residual[0] = 2.3066e-06
+niter = 8, num_unconv = 1, residual[0] = 2.1449e-06
+niter = 9, num_unconv = 1, residual[0] = 2.3532e-06
+niter = 10, num_unconv = 1, residual[0] = 3.1746e-06
+BlockPCG: niter = 10, num_unconv = 1, residual[0] = 3.1746e-06
+niter = 11, num_unconv = 1, residual[0] = 4.7978e-06
+niter = 12, num_unconv = 1, residual[0] = 6.9847e-06
+niter = 13, num_unconv = 1, residual[0] = 9.3921e-06
+niter = 14, num_unconv = 1, residual[0] = 1.1307e-05
+niter = 15, num_unconv = 1, residual[0] = 1.9153e-05
+BlockPCG: niter = 15, num_unconv = 1, residual[0] = 1.9153e-05
+niter = 16, num_unconv = 1, residual[0] = 1.0793e-05
+niter = 17, num_unconv = 1, residual[0] = 7.1883e-06
+niter = 18, num_unconv = 1, residual[0] = 4.9443e-06
+niter = 19, num_unconv = 1, residual[0] = 3.1989e-06
+niter = 20, num_unconv = 1, residual[0] = 1.9518e-06
+BlockPCG: niter = 20, num_unconv = 1, residual[0] = 1.9518e-06
+niter = 21, num_unconv = 1, residual[0] = 1.1744e-06
+niter = 22, num_unconv = 1, residual[0] = 7.2936e-07
+niter = 23, num_unconv = 1, residual[0] = 4.7512e-07
+niter = 24, num_unconv = 1, residual[0] = 2.8954e-07
+niter = 25, num_unconv = 1, residual[0] = 1.7442e-07
+BlockPCG: niter = 25, num_unconv = 1, residual[0] = 1.7442e-07
+niter = 26, num_unconv = 1, residual[0] = 1.0743e-07
+niter = 27, num_unconv = 1, residual[0] = 6.8304e-08
+niter = 28, num_unconv = 1, residual[0] = 4.2679e-08
+niter = 29, num_unconv = 1, residual[0] = 2.8021e-08
+niter = 30, num_unconv = 1, residual[0] = 3.9022e-08
+BlockPCG: niter = 30, num_unconv = 1, residual[0] = 3.9022e-08
+niter = 31, num_unconv = 1, residual[0] = 1.4812e-08
+niter = 32, num_unconv = 1, residual[0] = 9.0756e-09
+|--BPCG----------------------------
+|allreduce  axpby  inner_prod  matvec
+|0.00	0.00	0.00	0.00
+|6.01%	11.02%	9.27%	73.69%
+|--BPCG----------------------------
+
++++++++++++++++++++++++++++++++++++++++++++[POST SMOOTH 4]+++++++++++++++++++++++++++++++++++++++++++++++++++
+BlockPCG: initial residual[0] = 2.8248e-04
+niter = 1, num_unconv = 1, residual[0] = 1.3893e-04
+niter = 2, num_unconv = 1, residual[0] = 9.1551e-05
+niter = 3, num_unconv = 1, residual[0] = 6.0869e-05
+niter = 4, num_unconv = 1, residual[0] = 3.9509e-05
+niter = 5, num_unconv = 1, residual[0] = 3.4133e-05
+BlockPCG: niter = 5, num_unconv = 1, residual[0] = 3.4133e-05
+|--BPCG----------------------------
+|allreduce  axpby  inner_prod  matvec
+|0.00	0.00	0.00	0.00
+|1.34%	27.75%	5.18%	65.73%
+|--BPCG----------------------------
+
++++++++++++++++++++++++++++++++++++++++++++[PRE SMOOTH 5]+++++++++++++++++++++++++++++++++++++++++++++++++++
+BlockPCG: initial residual[0] = 3.4133e-05
+niter = 1, num_unconv = 1, residual[0] = 3.1441e-05
+niter = 2, num_unconv = 1, residual[0] = 4.0644e-05
+niter = 3, num_unconv = 1, residual[0] = 4.5729e-05
+niter = 4, num_unconv = 1, residual[0] = 4.4817e-05
+niter = 5, num_unconv = 1, residual[0] = 4.3453e-05
+BlockPCG: niter = 5, num_unconv = 1, residual[0] = 4.3453e-05
+|--BPCG----------------------------
+|allreduce  axpby  inner_prod  matvec
+|0.00	0.00	0.00	0.00
+|1.20%	27.62%	5.10%	66.08%
+|--BPCG----------------------------
+
++++++++++++++++++++++++++++++++++++++++++++[AUX 5]+++++++++++++++++++++++++++++++++++++++++++++++++++
+BlockPCG: initial residual[0] = 6.0513e-06
+niter = 1, num_unconv = 1, residual[0] = 9.7737e-06
+niter = 2, num_unconv = 1, residual[0] = 3.4094e-06
+niter = 3, num_unconv = 1, residual[0] = 2.3727e-06
+niter = 4, num_unconv = 1, residual[0] = 1.2276e-06
+niter = 5, num_unconv = 1, residual[0] = 6.7382e-07
+BlockPCG: niter = 5, num_unconv = 1, residual[0] = 6.7382e-07
+niter = 6, num_unconv = 1, residual[0] = 4.1921e-07
+niter = 7, num_unconv = 1, residual[0] = 3.0081e-07
+niter = 8, num_unconv = 1, residual[0] = 2.4222e-07
+niter = 9, num_unconv = 1, residual[0] = 2.2398e-07
+niter = 10, num_unconv = 1, residual[0] = 2.4754e-07
+BlockPCG: niter = 10, num_unconv = 1, residual[0] = 2.4754e-07
+niter = 11, num_unconv = 1, residual[0] = 3.4947e-07
+niter = 12, num_unconv = 1, residual[0] = 5.4247e-07
+niter = 13, num_unconv = 1, residual[0] = 7.8376e-07
+niter = 14, num_unconv = 1, residual[0] = 1.0240e-06
+niter = 15, num_unconv = 1, residual[0] = 1.2897e-06
+BlockPCG: niter = 15, num_unconv = 1, residual[0] = 1.2897e-06
+niter = 16, num_unconv = 1, residual[0] = 2.0302e-06
+niter = 17, num_unconv = 1, residual[0] = 1.0494e-06
+niter = 18, num_unconv = 1, residual[0] = 7.5077e-07
+niter = 19, num_unconv = 1, residual[0] = 4.8481e-07
+niter = 20, num_unconv = 1, residual[0] = 3.0306e-07
+BlockPCG: niter = 20, num_unconv = 1, residual[0] = 3.0306e-07
+niter = 21, num_unconv = 1, residual[0] = 1.9011e-07
+niter = 22, num_unconv = 1, residual[0] = 1.1783e-07
+niter = 23, num_unconv = 1, residual[0] = 7.3459e-08
+niter = 24, num_unconv = 1, residual[0] = 4.4326e-08
+niter = 25, num_unconv = 1, residual[0] = 2.7793e-08
+BlockPCG: niter = 25, num_unconv = 1, residual[0] = 2.7793e-08
+niter = 26, num_unconv = 1, residual[0] = 1.7229e-08
+niter = 27, num_unconv = 1, residual[0] = 1.0481e-08
+niter = 28, num_unconv = 1, residual[0] = 6.4301e-09
+|--BPCG----------------------------
+|allreduce  axpby  inner_prod  matvec
+|0.00	0.00	0.00	0.00
+|6.47%	11.10%	9.43%	73.01%
+|--BPCG----------------------------
+
++++++++++++++++++++++++++++++++++++++++++++[POST SMOOTH 5]+++++++++++++++++++++++++++++++++++++++++++++++++++
+BlockPCG: initial residual[0] = 4.6754e-05
+niter = 1, num_unconv = 1, residual[0] = 2.2227e-05
+niter = 2, num_unconv = 1, residual[0] = 1.4593e-05
+niter = 3, num_unconv = 1, residual[0] = 9.7396e-06
+niter = 4, num_unconv = 1, residual[0] = 6.1871e-06
+niter = 5, num_unconv = 1, residual[0] = 5.4889e-06
+BlockPCG: niter = 5, num_unconv = 1, residual[0] = 5.4889e-06
+|--BPCG----------------------------
+|allreduce  axpby  inner_prod  matvec
+|0.00	0.00	0.00	0.00
+|1.32%	28.10%	4.91%	65.67%
+|--BPCG----------------------------
+
++++++++++++++++++++++++++++++++++++++++++++[PRE SMOOTH 6]+++++++++++++++++++++++++++++++++++++++++++++++++++
+BlockPCG: initial residual[0] = 5.4889e-06
+niter = 1, num_unconv = 1, residual[0] = 4.9356e-06
+niter = 2, num_unconv = 1, residual[0] = 6.0367e-06
+niter = 3, num_unconv = 1, residual[0] = 6.4064e-06
+niter = 4, num_unconv = 1, residual[0] = 6.2858e-06
+niter = 5, num_unconv = 1, residual[0] = 6.4321e-06
+BlockPCG: niter = 5, num_unconv = 1, residual[0] = 6.4321e-06
+|--BPCG----------------------------
+|allreduce  axpby  inner_prod  matvec
+|0.00	0.00	0.00	0.00
+|1.54%	27.95%	5.06%	65.45%
+|--BPCG----------------------------
+
++++++++++++++++++++++++++++++++++++++++++++[AUX 6]+++++++++++++++++++++++++++++++++++++++++++++++++++
+BlockPCG: initial residual[0] = 9.8742e-07
+niter = 1, num_unconv = 1, residual[0] = 1.8545e-06
+niter = 2, num_unconv = 1, residual[0] = 7.4515e-07
+niter = 3, num_unconv = 1, residual[0] = 4.2031e-07
+niter = 4, num_unconv = 1, residual[0] = 1.7516e-07
+niter = 5, num_unconv = 1, residual[0] = 1.0593e-07
+BlockPCG: niter = 5, num_unconv = 1, residual[0] = 1.0593e-07
+niter = 6, num_unconv = 1, residual[0] = 7.5458e-08
+niter = 7, num_unconv = 1, residual[0] = 5.0354e-08
+niter = 8, num_unconv = 1, residual[0] = 3.6168e-08
+niter = 9, num_unconv = 1, residual[0] = 3.3237e-08
+niter = 10, num_unconv = 1, residual[0] = 3.9401e-08
+BlockPCG: niter = 10, num_unconv = 1, residual[0] = 3.9401e-08
+niter = 11, num_unconv = 1, residual[0] = 5.3961e-08
+niter = 12, num_unconv = 1, residual[0] = 7.7387e-08
+niter = 13, num_unconv = 1, residual[0] = 1.1375e-07
+niter = 14, num_unconv = 1, residual[0] = 1.6082e-07
+niter = 15, num_unconv = 1, residual[0] = 2.6710e-07
+BlockPCG: niter = 15, num_unconv = 1, residual[0] = 2.6710e-07
+niter = 16, num_unconv = 1, residual[0] = 2.2153e-07
+niter = 17, num_unconv = 1, residual[0] = 1.5810e-07
+niter = 18, num_unconv = 1, residual[0] = 1.2058e-07
+niter = 19, num_unconv = 1, residual[0] = 7.9261e-08
+niter = 20, num_unconv = 1, residual[0] = 4.8609e-08
+BlockPCG: niter = 20, num_unconv = 1, residual[0] = 4.8609e-08
+niter = 21, num_unconv = 1, residual[0] = 3.0412e-08
+niter = 22, num_unconv = 1, residual[0] = 1.9001e-08
+niter = 23, num_unconv = 1, residual[0] = 1.1927e-08
+niter = 24, num_unconv = 1, residual[0] = 7.2730e-09
+|--BPCG----------------------------
+|allreduce  axpby  inner_prod  matvec
+|0.00	0.00	0.00	0.00
+|5.31%	10.93%	9.35%	74.41%
+|--BPCG----------------------------
+
++++++++++++++++++++++++++++++++++++++++++++[POST SMOOTH 6]+++++++++++++++++++++++++++++++++++++++++++++++++++
+BlockPCG: initial residual[0] = 7.6725e-06
+niter = 1, num_unconv = 1, residual[0] = 3.5763e-06
+niter = 2, num_unconv = 1, residual[0] = 2.5883e-06
+niter = 3, num_unconv = 1, residual[0] = 2.0198e-06
+niter = 4, num_unconv = 1, residual[0] = 1.4819e-06
+niter = 5, num_unconv = 1, residual[0] = 1.3728e-06
+BlockPCG: niter = 5, num_unconv = 1, residual[0] = 1.3728e-06
+|--BPCG----------------------------
+|allreduce  axpby  inner_prod  matvec
+|0.00	0.00	0.00	0.00
+|1.21%	27.71%	5.51%	65.57%
+|--BPCG----------------------------
+
++++++++++++++++++++++++++++++++++++++++++++[PRE SMOOTH 7]+++++++++++++++++++++++++++++++++++++++++++++++++++
+BlockPCG: initial residual[0] = 1.3728e-06
+niter = 1, num_unconv = 1, residual[0] = 1.0631e-06
+niter = 2, num_unconv = 1, residual[0] = 1.0151e-06
+niter = 3, num_unconv = 1, residual[0] = 9.7145e-07
+niter = 4, num_unconv = 1, residual[0] = 1.0147e-06
+niter = 5, num_unconv = 1, residual[0] = 1.2370e-06
+BlockPCG: niter = 5, num_unconv = 1, residual[0] = 1.2370e-06
+|--BPCG----------------------------
+|allreduce  axpby  inner_prod  matvec
+|0.00	0.00	0.00	0.00
+|1.11%	27.70%	5.49%	65.70%
+|--BPCG----------------------------
+
++++++++++++++++++++++++++++++++++++++++++++[AUX 7]+++++++++++++++++++++++++++++++++++++++++++++++++++
+BlockPCG: initial residual[0] = 2.1236e-07
+niter = 1, num_unconv = 1, residual[0] = 4.7775e-07
+niter = 2, num_unconv = 1, residual[0] = 1.7670e-07
+niter = 3, num_unconv = 1, residual[0] = 7.2376e-08
+niter = 4, num_unconv = 1, residual[0] = 3.2969e-08
+niter = 5, num_unconv = 1, residual[0] = 2.3960e-08
+BlockPCG: niter = 5, num_unconv = 1, residual[0] = 2.3960e-08
+niter = 6, num_unconv = 1, residual[0] = 1.4406e-08
+niter = 7, num_unconv = 1, residual[0] = 8.3470e-09
+|--BPCG----------------------------
+|allreduce  axpby  inner_prod  matvec
+|0.00	0.00	0.00	0.00
+|3.43%	10.05%	11.35%	75.18%
+|--BPCG----------------------------
+
++++++++++++++++++++++++++++++++++++++++++++[POST SMOOTH 7]+++++++++++++++++++++++++++++++++++++++++++++++++++
+BlockPCG: initial residual[0] = 1.6197e-06
+niter = 1, num_unconv = 1, residual[0] = 7.1336e-07
+niter = 2, num_unconv = 1, residual[0] = 4.9559e-07
+niter = 3, num_unconv = 1, residual[0] = 3.6485e-07
+niter = 4, num_unconv = 1, residual[0] = 2.7446e-07
+niter = 5, num_unconv = 1, residual[0] = 2.5636e-07
+BlockPCG: niter = 5, num_unconv = 1, residual[0] = 2.5636e-07
+|--BPCG----------------------------
+|allreduce  axpby  inner_prod  matvec
+|0.00	0.00	0.00	0.00
+|1.59%	28.25%	4.95%	65.22%
+|--BPCG----------------------------
+
++++++++++++++++++++++++++++++++++++++++++++[PRE SMOOTH 8]+++++++++++++++++++++++++++++++++++++++++++++++++++
+BlockPCG: initial residual[0] = 2.5636e-07
+niter = 1, num_unconv = 1, residual[0] = 2.1841e-07
+niter = 2, num_unconv = 1, residual[0] = 2.3623e-07
+niter = 3, num_unconv = 1, residual[0] = 2.5377e-07
+niter = 4, num_unconv = 1, residual[0] = 2.6641e-07
+niter = 5, num_unconv = 1, residual[0] = 3.1635e-07
+BlockPCG: niter = 5, num_unconv = 1, residual[0] = 3.1635e-07
+|--BPCG----------------------------
+|allreduce  axpby  inner_prod  matvec
+|0.00	0.00	0.00	0.00
+|1.60%	27.52%	4.99%	65.88%
+|--BPCG----------------------------
+
++++++++++++++++++++++++++++++++++++++++++++[AUX 8]+++++++++++++++++++++++++++++++++++++++++++++++++++
+BlockPCG: initial residual[0] = 3.8725e-08
+niter = 1, num_unconv = 1, residual[0] = 3.4687e-08
+niter = 2, num_unconv = 1, residual[0] = 5.3970e-08
+niter = 3, num_unconv = 1, residual[0] = 1.7189e-08
+niter = 4, num_unconv = 1, residual[0] = 7.0641e-09
+|--BPCG----------------------------
+|allreduce  axpby  inner_prod  matvec
+|0.00	0.00	0.00	0.00
+|3.39%	9.97%	12.84%	73.80%
+|--BPCG----------------------------
+
++++++++++++++++++++++++++++++++++++++++++++[POST SMOOTH 8]+++++++++++++++++++++++++++++++++++++++++++++++++++
+BlockPCG: initial residual[0] = 3.7149e-07
+niter = 1, num_unconv = 1, residual[0] = 1.6574e-07
+niter = 2, num_unconv = 1, residual[0] = 1.1740e-07
+niter = 3, num_unconv = 1, residual[0] = 8.4561e-08
+niter = 4, num_unconv = 1, residual[0] = 5.9317e-08
+niter = 5, num_unconv = 1, residual[0] = 5.3086e-08
+BlockPCG: niter = 5, num_unconv = 1, residual[0] = 5.3086e-08
+|--BPCG----------------------------
+|allreduce  axpby  inner_prod  matvec
+|0.00	0.00	0.00	0.00
+|1.38%	27.31%	5.66%	65.65%
+|--BPCG----------------------------
+
++++++++++++++++++++++++++++++++++++++++++++[PRE SMOOTH 9]+++++++++++++++++++++++++++++++++++++++++++++++++++
+BlockPCG: initial residual[0] = 5.3086e-08
+niter = 1, num_unconv = 1, residual[0] = 4.7467e-08
+niter = 2, num_unconv = 1, residual[0] = 5.1868e-08
+niter = 3, num_unconv = 1, residual[0] = 5.4172e-08
+niter = 4, num_unconv = 1, residual[0] = 5.5153e-08
+niter = 5, num_unconv = 1, residual[0] = 6.5237e-08
+BlockPCG: niter = 5, num_unconv = 1, residual[0] = 6.5237e-08
+|--BPCG----------------------------
+|allreduce  axpby  inner_prod  matvec
+|0.00	0.00	0.00	0.00
+|1.29%	27.55%	5.05%	66.11%
+|--BPCG----------------------------
+
++++++++++++++++++++++++++++++++++++++++++++[AUX 9]+++++++++++++++++++++++++++++++++++++++++++++++++++
+BlockPCG: initial residual[0] = 9.0075e-09
+|--BPCG----------------------------
+|allreduce  axpby  inner_prod  matvec
+|0.00	0.00	0.00	0.00
+|0.00%	3.74%	24.28%	71.98%
+|--BPCG----------------------------
+
++++++++++++++++++++++++++++++++++++++++++++[POST SMOOTH 9]+++++++++++++++++++++++++++++++++++++++++++++++++++
+BlockPCG: initial residual[0] = 6.5237e-08
+niter = 1, num_unconv = 1, residual[0] = 3.1330e-08
+niter = 2, num_unconv = 1, residual[0] = 2.7124e-08
+niter = 3, num_unconv = 1, residual[0] = 2.4887e-08
+niter = 4, num_unconv = 1, residual[0] = 2.1562e-08
+niter = 5, num_unconv = 1, residual[0] = 2.2541e-08
+BlockPCG: niter = 5, num_unconv = 1, residual[0] = 2.2541e-08
+|--BPCG----------------------------
+|allreduce  axpby  inner_prod  matvec
+|0.00	0.00	0.00	0.00
+|1.27%	27.25%	5.80%	65.68%
+|--BPCG----------------------------

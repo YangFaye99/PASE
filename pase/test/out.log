@@ -1,0 +1,847 @@
+mpirun -np 10   ./test0.exe 
+[MatrixRead] matrix size: 90000 x 90000
+
+============== [ solver creation ] ==============
+
+[solver_create] Multigrid Type is == AMG ==
+[solver_create] Preconditioner(1) On!
+[CREATING] user_nev = 10 | pase_nev = 20
+[CREATING] init given eigs num: 0
+
+=================================================
+
+=============== [ solver setup ] ================
+
+[petsc_gamg] multigrid 初始层数: 5 levels
+[petsc_gamg] multigrid 层数更新: 5 levels
+·            size of level 0: 90000 x 90000
+·             |  interpolation 0: 90000 x 12524
+·            size of level 1: 12524 x 12524
+·             |  interpolation 1: 12524 x 2199
+·            size of level 2: 2199 x 2199
+·             |  interpolation 2: 2199 x 200
+·            size of level 3: 200 x 200
+·             |  interpolation 3: 200 x 18
+·            size of level 4: 18 x 18
+
+------ timer -------
+[get_amg_array] 总时间: 5.386170
+(1): 调用GAMG获取A_array和P_array时间:3.388010
+(2): 计算B_array时间:                 1.998083
+------ timer -------
+
+[TwoGird] 选择粗层为: Level 2
+[TwoGird] 选择细层为: Level 0
+
+------ timer -------
+[solver setup] 总时间: 5.874333
+(1) multigrid setup : 5.386595 (91.6971%)
+(2) aux space setup : 0.487734 (8.3028%)
+------ timer -------
+
+
+|=================== PARAMETERS ====================|
+|------------------ [eigenvalue] -------------------|
+| user_nev                 =           10           |
+| pase_nev                 =           20           |
+| num_given_eigs           =            0           |
+|------------------ [converging] -------------------|
+| rtol                     = 1.000000e-07           |
+| atol                     = 1.000000e-07           |
+| aux_rtol                 = 1.000000e-08           |
+| initial_rtol             = 1.000000e-08           |
+|------------------ [multigrid] --------------------|
+| num_levels               =            5           |
+| initial_level            =            2           |
+| aux_coarse_level         =            2           |
+| aux_fine_level           =            0           |
+|------------------ [iterations] -------------------|
+| max_cycle_count          =            5           |
+| max_pre_count            =            2           |
+| max_post_count           =            2           |
+| max_direct_count         =           20           |
+| max_initial_direct_count =           20           |
+|===================================================|
+
+=================================================
+
+=================== [ solve ] ===================
+
+-------- initial vecs ----------
+[direct solve] level :
+[direct solve] gcg设置:
+·              nevConv    = 10 
+·              block_size = 5 
+·              nevMax     = 20 
+·              nevGiven   = 0 
+·              gapMin     = 1.000000e-05 
+sizeX = 20, nevGiven = 0, mgs
+[direct solve] gcg结果:
+·              nevConv    = 0 
+·              eigs[ 0]   = 3.107232e-04 
+·              eigs[ 1]   = 7.791843e-04 
+·              eigs[ 2]   = 7.845647e-04 
+·              eigs[ 3]   = 1.248356e-03 
+·              eigs[ 4]   = 1.542075e-03 
+·              eigs[ 5]   = 1.574313e-03 
+·              eigs[ 6]   = 2.012683e-03 
+·              eigs[ 7]   = 2.039615e-03 
+·              eigs[ 8]   = 2.665092e-03 
+·              eigs[ 9]   = 2.767753e-03 
+·              eigs[10]   = 2.801536e-03 
+·              eigs[11]   = 3.177268e-03 
+·              eigs[12]   = 3.254018e-03 
+·              eigs[13]   = 3.898794e-03 
+·              eigs[14]   = 4.009420e-03 
+·              eigs[15]   = 4.104135e-03 
+·              eigs[16]   = 4.342928e-03 
+·              eigs[17]   = 4.802356e-03 
+·              eigs[18]   = 4.939384e-03 
+·              eigs[19]   = 5.321655e-03 
+
+[direct solve] get initial vecs time : 10.085328 sec.
+-------------------------------
+
+···· [ Level 2 ] --> [ Level 0 ] ····
+
+-------- cycle [0] ----------
+
+(0) pre-smoothing:
+-   smooth_level : 0
+-   max_pre_count : 2
+-   nlock_smooth : 0
+-   smooth_type : BCG
+-   pre-smoothing time : 4.573359 sec
+
+(1) aux space setup:
+-   nlock_direct : 0
+-   setup solution time : 0.000092 sec
+-   nlock_auxmat_A : 0
+···· [ Level 0 ] --> [ Level 1 ] ····
+···· [ Level 1 ] --> [ Level 2 ] ····
+-   setup A time : 0.117108 sec
+-   nlock_auxmat_B : 0
+···· [ Level 0 ] --> [ Level 1 ] ····
+···· [ Level 1 ] --> [ Level 2 ] ····
+-   setup B time : 0.287993 sec
+-   B preconditioner [ON]
+-   B precondition time : 0.125509 sec
+-   A preconditioner [OFF]
+
+-   build aux space time : 0.531144 sec
+
+(2) aux solver:
+[aux direct solve] level :
+[aux direct solve] gcg设置:
+·                  nevConv    = 10 
+·                  block_size = 5 
+·                  nevMax     = 20 
+·                  nevGiven   = 20 
+·                  gapMin     = 1.000000e-05 
+sizeX = 20, nevGiven = 20, mgs
+[aux direct solve] gcg结果:
+·                  nevConv    = 10 
+·                  eigs[ 0]   = 2.224829e-04 
+·                  eigs[ 1]   = 5.588062e-04 
+·                  eigs[ 2]   = 5.593740e-04 
+·                  eigs[ 3]   = 8.947650e-04 
+·                  eigs[ 4]   = 1.117518e-03 
+·                  eigs[ 5]   = 1.118258e-03 
+·                  eigs[ 6]   = 1.452583e-03 
+·                  eigs[ 7]   = 1.454426e-03 
+·                  eigs[ 8]   = 1.902160e-03 
+·                  eigs[ 9]   = 1.908975e-03 
+·                  eigs[10]   = 2.011785e-03 
+·                  eigs[11]   = 2.240208e-03 
+·                  eigs[12]   = 2.245906e-03 
+·                  eigs[13]   = 2.794916e-03 
+·                  eigs[14]   = 2.826333e-03 
+·                  eigs[15]   = 2.932291e-03 
+·                  eigs[16]   = 2.965555e-03 
+·                  eigs[17]   = 3.332808e-03 
+·                  eigs[18]   = 3.377030e-03 
+·                  eigs[19]   = 3.826088e-03 
+
+-   aux solver time : 5.506076 sec
+
+(3) prolong to fine level:
+···· [ Level 2 ] --> [ Level 0 ] ····
+-   prolong time : 0.228378 sec
+
+(4) post smoothing:
+-   smooth_level : 0
+-   max_pre_count : 2
+-   nlock_smooth : 0
+-   smooth_type : BCG
+-   post-smoothing time : 10.391152 sec
+
+
+------------------------------
+[error estimate] cycle 0
+·                conv_nev = 0
+·                eigenvalue 0 : 2.224829e-04
+·                | u_norm : 1.000184e+00
+·                | r_norm : 4.962292e-05
+·                eigenvalue 1 : 5.588062e-04
+·                | u_norm : 1.000693e+00
+·                | r_norm : 5.802539e-05
+·                eigenvalue 2 : 5.593740e-04
+·                | u_norm : 1.000779e+00
+·                | r_norm : 6.389298e-05
+·                eigenvalue 3 : 8.947650e-04
+·                | u_norm : 1.001092e+00
+·                | r_norm : 6.808343e-05
+·                eigenvalue 4 : 1.117518e-03
+·                | u_norm : 1.001341e+00
+·                | r_norm : 8.168646e-05
+·                eigenvalue 5 : 1.118258e-03
+·                | u_norm : 1.001304e+00
+·                | r_norm : 7.132737e-05
+·                eigenvalue 6 : 1.452583e-03
+·                | u_norm : 1.001678e+00
+·                | r_norm : 9.162399e-05
+·                eigenvalue 7 : 1.454426e-03
+·                | u_norm : 1.001876e+00
+·                | r_norm : 1.037831e-04
+·                eigenvalue 8 : 1.902160e-03
+·                | u_norm : 1.002884e+00
+·                | r_norm : 1.595686e-04
+·                eigenvalue 9 : 1.908975e-03
+·                | u_norm : 1.003649e+00
+·                | r_norm : 1.844295e-04
+·                eigenvalue 10 : 2.011785e-03
+·                | u_norm : 1.002438e+00
+·                | r_norm : 1.245389e-04
+·                eigenvalue 11 : 2.240208e-03
+·                | u_norm : 1.003972e+00
+·                | r_norm : 2.151789e-04
+·                eigenvalue 12 : 2.245906e-03
+·                | u_norm : 1.005236e+00
+·                | r_norm : 3.051829e-04
+·                eigenvalue 13 : 2.794916e-03
+·                | u_norm : 1.003856e+00
+·                | r_norm : 1.995188e-04
+·                eigenvalue 14 : 2.826333e-03
+·                | u_norm : 1.008362e+00
+·                | r_norm : 6.556596e-04
+·                eigenvalue 15 : 2.932291e-03
+·                | u_norm : 1.006579e+00
+·                | r_norm : 4.463244e-04
+·                eigenvalue 16 : 2.965555e-03
+·                | u_norm : 1.012413e+00
+·                | r_norm : 9.056234e-04
+·                eigenvalue 17 : 3.332808e-03
+·                | u_norm : 1.017824e+00
+·                | r_norm : 1.141935e-03
+·                eigenvalue 18 : 3.377030e-03
+·                | u_norm : 1.020469e+00
+·                | r_norm : 1.368898e-03
+·                eigenvalue 19 : 3.826088e-03
+·                | u_norm : 1.008937e+00
+·                | r_norm : 6.557434e-04
+[error estimate] final conv_nev = 0
+
+-------- cycle [1] ----------
+
+(0) pre-smoothing:
+-   smooth_level : 0
+-   max_pre_count : 2
+-   nlock_smooth : 0
+-   smooth_type : BCG
+-   pre-smoothing time : 5.931553 sec
+
+(1) aux space setup:
+-   nlock_direct : 0
+-   setup solution time : 0.000214 sec
+-   nlock_auxmat_A : 0
+···· [ Level 0 ] --> [ Level 1 ] ····
+···· [ Level 1 ] --> [ Level 2 ] ····
+-   setup A time : 0.139590 sec
+-   nlock_auxmat_B : 0
+···· [ Level 0 ] --> [ Level 1 ] ····
+···· [ Level 1 ] --> [ Level 2 ] ····
+-   setup B time : 0.259791 sec
+-   B preconditioner [ON]
+-   B precondition time : 0.179509 sec
+-   A preconditioner [OFF]
+
+-   build aux space time : 0.579843 sec
+
+(2) aux solver:
+[aux direct solve] level :
+[aux direct solve] gcg设置:
+·                  nevConv    = 10 
+·                  block_size = 5 
+·                  nevMax     = 20 
+·                  nevGiven   = 20 
+·                  gapMin     = 1.000000e-05 
+sizeX = 20, nevGiven = 20, mgs
+[aux direct solve] gcg结果:
+·                  nevConv    = 11 
+·                  eigs[ 0]   = 2.207923e-04 
+·                  eigs[ 1]   = 5.519691e-04 
+·                  eigs[ 2]   = 5.519694e-04 
+·                  eigs[ 3]   = 8.831460e-04 
+·                  eigs[ 4]   = 1.103890e-03 
+·                  eigs[ 5]   = 1.103890e-03 
+·                  eigs[ 6]   = 1.435068e-03 
+·                  eigs[ 7]   = 1.435070e-03 
+·                  eigs[ 8]   = 1.876509e-03 
+·                  eigs[ 9]   = 1.876515e-03 
+·                  eigs[10]   = 1.986993e-03 
+·                  eigs[11]   = 2.207710e-03 
+·                  eigs[12]   = 2.207826e-03 
+·                  eigs[13]   = 2.759724e-03 
+·                  eigs[14]   = 2.760386e-03 
+·                  eigs[15]   = 2.869967e-03 
+·                  eigs[16]   = 2.874061e-03 
+·                  eigs[17]   = 3.212397e-03 
+·                  eigs[18]   = 3.240555e-03 
+·                  eigs[19]   = 3.747036e-03 
+
+-   aux solver time : 6.784789 sec
+
+(3) prolong to fine level:
+···· [ Level 2 ] --> [ Level 0 ] ····
+-   prolong time : 0.163672 sec
+
+(4) post smoothing:
+-   smooth_level : 0
+-   max_pre_count : 2
+-   nlock_smooth : 0
+-   smooth_type : BCG
+-   post-smoothing time : 19.846860 sec
+
+
+------------------------------
+[error estimate] cycle 1
+·                conv_nev = 0
+·                eigenvalue 0 : 2.207923e-04
+·                | u_norm : 1.000000e+00
+·                | r_norm : 1.683269e-06
+·                eigenvalue 1 : 5.519691e-04
+·                | u_norm : 1.000000e+00
+·                | r_norm : 8.585905e-07
+·                eigenvalue 2 : 5.519694e-04
+·                | u_norm : 1.000000e+00
+·                | r_norm : 1.100208e-06
+·                eigenvalue 3 : 8.831460e-04
+·                | u_norm : 1.000000e+00
+·                | r_norm : 7.227445e-07
+·                eigenvalue 4 : 1.103890e-03
+·                | u_norm : 1.000000e+00
+·                | r_norm : 6.226932e-07
+·                eigenvalue 5 : 1.103890e-03
+·                | u_norm : 1.000000e+00
+·                | r_norm : 7.472317e-07
+·                eigenvalue 6 : 1.435068e-03
+·                | u_norm : 1.000001e+00
+·                | r_norm : 2.890242e-06
+·                eigenvalue 7 : 1.435070e-03
+·                | u_norm : 1.000001e+00
+·                | r_norm : 5.549688e-06
+·                eigenvalue 8 : 1.876509e-03
+·                | u_norm : 1.000004e+00
+·                | r_norm : 1.224277e-05
+·                eigenvalue 9 : 1.876515e-03
+·                | u_norm : 1.000005e+00
+·                | r_norm : 1.284978e-05
+·                eigenvalue 10 : 1.986993e-03
+·                | u_norm : 1.000002e+00
+·                | r_norm : 5.805068e-06
+·                eigenvalue 11 : 2.207710e-03
+·                | u_norm : 1.000008e+00
+·                | r_norm : 2.268561e-05
+·                eigenvalue 12 : 2.207826e-03
+·                | u_norm : 1.000025e+00
+·                | r_norm : 5.500748e-05
+·                eigenvalue 13 : 2.759724e-03
+·                | u_norm : 1.000016e+00
+·                | r_norm : 4.731900e-05
+·                eigenvalue 14 : 2.760386e-03
+·                | u_norm : 1.000109e+00
+·                | r_norm : 1.182617e-04
+·                eigenvalue 15 : 2.869967e-03
+·                | u_norm : 1.000040e+00
+·                | r_norm : 4.503455e-05
+·                eigenvalue 16 : 2.874061e-03
+·                | u_norm : 1.000475e+00
+·                | r_norm : 2.615132e-04
+·                eigenvalue 17 : 3.212397e-03
+·                | u_norm : 1.001314e+00
+·                | r_norm : 4.307628e-04
+·                eigenvalue 18 : 3.240555e-03
+·                | u_norm : 1.002498e+00
+·                | r_norm : 6.752010e-04
+·                eigenvalue 19 : 3.747036e-03
+·                | u_norm : 1.000641e+00
+·                | r_norm : 3.436930e-04
+[error estimate] final conv_nev = 0
+
+-------- cycle [2] ----------
+
+(0) pre-smoothing:
+-   smooth_level : 0
+-   max_pre_count : 2
+-   nlock_smooth : 0
+-   smooth_type : BCG
+-   pre-smoothing time : 3.198634 sec
+
+(1) aux space setup:
+-   nlock_direct : 0
+-   setup solution time : 0.000077 sec
+-   nlock_auxmat_A : 0
+···· [ Level 0 ] --> [ Level 1 ] ····
+···· [ Level 1 ] --> [ Level 2 ] ····
+-   setup A time : 0.233929 sec
+-   nlock_auxmat_B : 0
+···· [ Level 0 ] --> [ Level 1 ] ····
+···· [ Level 1 ] --> [ Level 2 ] ····
+-   setup B time : 0.919011 sec
+-   B preconditioner [ON]
+-   B precondition time : 0.157721 sec
+-   A preconditioner [OFF]
+
+-   build aux space time : 1.311557 sec
+
+(2) aux solver:
+[aux direct solve] level :
+[aux direct solve] gcg设置:
+·                  nevConv    = 10 
+·                  block_size = 5 
+·                  nevMax     = 20 
+·                  nevGiven   = 20 
+·                  gapMin     = 1.000000e-05 
+sizeX = 20, nevGiven = 20, mgs
+[aux direct solve] gcg结果:
+·                  nevConv    = 10 
+·                  eigs[ 0]   = 2.207920e-04 
+·                  eigs[ 1]   = 5.519679e-04 
+·                  eigs[ 2]   = 5.519679e-04 
+·                  eigs[ 3]   = 8.831437e-04 
+·                  eigs[ 4]   = 1.103887e-03 
+·                  eigs[ 5]   = 1.103887e-03 
+·                  eigs[ 6]   = 1.435063e-03 
+·                  eigs[ 7]   = 1.435063e-03 
+·                  eigs[ 8]   = 1.876489e-03 
+·                  eigs[ 9]   = 1.876489e-03 
+·                  eigs[10]   = 1.986982e-03 
+·                  eigs[11]   = 2.207665e-03 
+·                  eigs[12]   = 2.207672e-03 
+·                  eigs[13]   = 2.759609e-03 
+·                  eigs[14]   = 2.759631e-03 
+·                  eigs[15]   = 2.869700e-03 
+·                  eigs[16]   = 2.870657e-03 
+·                  eigs[17]   = 3.203071e-03 
+·                  eigs[18]   = 3.220024e-03 
+·                  eigs[19]   = 3.740250e-03 
+
+-   aux solver time : 3.722983 sec
+
+(3) prolong to fine level:
+···· [ Level 2 ] --> [ Level 0 ] ····
+-   prolong time : 0.088226 sec
+
+(4) post smoothing:
+-   smooth_level : 0
+-   max_pre_count : 2
+-   nlock_smooth : 0
+-   smooth_type : BCG
+-   post-smoothing time : 26.233865 sec
+
+
+------------------------------
+[error estimate] cycle 2
+·                conv_nev = 0
+·                eigenvalue 0 : 2.207920e-04
+·                | u_norm : 1.000000e+00
+·                | r_norm : 6.166382e-08
+·                | 收敛！ : 6.166382e-08
+·                eigenvalue 1 : 5.519679e-04
+·                | u_norm : 1.000000e+00
+·                | r_norm : 8.153978e-08
+·                | 收敛！ : 8.153978e-08
+·                eigenvalue 2 : 5.519679e-04
+·                | u_norm : 1.000000e+00
+·                | r_norm : 1.121416e-07
+·                eigenvalue 3 : 8.831437e-04
+·                | u_norm : 1.000000e+00
+·                | r_norm : 1.346829e-07
+·                eigenvalue 4 : 1.103887e-03
+·                | u_norm : 1.000000e+00
+·                | r_norm : 1.093296e-07
+·                eigenvalue 5 : 1.103887e-03
+·                | u_norm : 1.000000e+00
+·                | r_norm : 1.716736e-07
+·                eigenvalue 6 : 1.435063e-03
+·                | u_norm : 1.000000e+00
+·                | r_norm : 5.672228e-07
+·                eigenvalue 7 : 1.435063e-03
+·                | u_norm : 1.000000e+00
+·                | r_norm : 1.139100e-06
+·                eigenvalue 8 : 1.876489e-03
+·                | u_norm : 1.000000e+00
+·                | r_norm : 1.847315e-06
+·                eigenvalue 9 : 1.876489e-03
+·                | u_norm : 1.000000e+00
+·                | r_norm : 3.053934e-06
+·                eigenvalue 10 : 1.986982e-03
+·                | u_norm : 1.000000e+00
+·                | r_norm : 1.553545e-06
+·                eigenvalue 11 : 2.207665e-03
+·                | u_norm : 1.000000e+00
+·                | r_norm : 4.940084e-06
+·                eigenvalue 12 : 2.207672e-03
+·                | u_norm : 1.000001e+00
+·                | r_norm : 1.398589e-05
+·                eigenvalue 13 : 2.759609e-03
+·                | u_norm : 1.000003e+00
+·                | r_norm : 2.516080e-05
+·                eigenvalue 14 : 2.759631e-03
+·                | u_norm : 1.000005e+00
+·                | r_norm : 4.036466e-05
+·                eigenvalue 15 : 2.869700e-03
+·                | u_norm : 1.000001e+00
+·                | r_norm : 1.847101e-05
+·                eigenvalue 16 : 2.870657e-03
+·                | u_norm : 1.000090e+00
+·                | r_norm : 1.464516e-04
+·                eigenvalue 17 : 3.203071e-03
+·                | u_norm : 1.000223e+00
+·                | r_norm : 2.178874e-04
+·                eigenvalue 18 : 3.220024e-03
+·                | u_norm : 1.001041e+00
+·                | r_norm : 5.145143e-04
+·                eigenvalue 19 : 3.740250e-03
+·                | u_norm : 1.000686e+00
+·                | r_norm : 4.233204e-04
+[error estimate] No.1 和 No.2 判定重根！
+[error estimate] final conv_nev = 1
+
+-------- cycle [3] ----------
+
+(0) pre-smoothing:
+-   smooth_level : 0
+-   max_pre_count : 2
+-   nlock_smooth : 1
+-   smooth_type : BCG
+-   pre-smoothing time : 4.225805 sec
+
+(1) aux space setup:
+-   nlock_direct : 0
+-   setup solution time : 0.024033 sec
+-   nlock_auxmat_A : 0
+···· [ Level 0 ] --> [ Level 1 ] ····
+···· [ Level 1 ] --> [ Level 2 ] ····
+-   setup A time : 0.297365 sec
+-   nlock_auxmat_B : 0
+···· [ Level 0 ] --> [ Level 1 ] ····
+···· [ Level 1 ] --> [ Level 2 ] ····
+-   setup B time : 0.278044 sec
+-   B preconditioner [ON]
+-   B precondition time : 0.072714 sec
+-   A preconditioner [OFF]
+
+-   build aux space time : 0.673366 sec
+
+(2) aux solver:
+[aux direct solve] level :
+[aux direct solve] gcg设置:
+·                  nevConv    = 10 
+·                  block_size = 5 
+·                  nevMax     = 20 
+·                  nevGiven   = 20 
+·                  gapMin     = 1.000000e-05 
+sizeX = 20, nevGiven = 20, mgs
+[aux direct solve] gcg结果:
+·                  nevConv    = 10 
+·                  eigs[ 0]   = 2.207920e-04 
+·                  eigs[ 1]   = 5.519679e-04 
+·                  eigs[ 2]   = 5.519679e-04 
+·                  eigs[ 3]   = 8.831437e-04 
+·                  eigs[ 4]   = 1.103887e-03 
+·                  eigs[ 5]   = 1.103887e-03 
+·                  eigs[ 6]   = 1.435063e-03 
+·                  eigs[ 7]   = 1.435063e-03 
+·                  eigs[ 8]   = 1.876488e-03 
+·                  eigs[ 9]   = 1.876488e-03 
+·                  eigs[10]   = 1.986982e-03 
+·                  eigs[11]   = 2.207664e-03 
+·                  eigs[12]   = 2.207665e-03 
+·                  eigs[13]   = 2.759588e-03 
+·                  eigs[14]   = 2.759590e-03 
+·                  eigs[15]   = 2.869689e-03 
+·                  eigs[16]   = 2.869956e-03 
+·                  eigs[17]   = 3.201370e-03 
+·                  eigs[18]   = 3.210689e-03 
+·                  eigs[19]   = 3.732103e-03 
+
+-   aux solver time : 1.757432 sec
+
+(3) prolong to fine level:
+···· [ Level 2 ] --> [ Level 0 ] ····
+-   prolong time : 0.347175 sec
+
+(4) post smoothing:
+-   smooth_level : 0
+-   max_pre_count : 2
+-   nlock_smooth : 1
+-   smooth_type : BCG
+-   post-smoothing time : 34.610279 sec
+
+
+------------------------------
+[error estimate] cycle 3
+·                conv_nev = 1
+·                eigenvalue 0 : 2.207920e-04
+·                | u_norm : 1.000000e+00
+·                | r_norm : 6.166382e-08
+·                | 收敛！ : 6.166382e-08
+·                eigenvalue 1 : 5.519679e-04
+·                | u_norm : 1.000000e+00
+·                | r_norm : 6.168167e-09
+·                | 收敛！ : 6.168167e-09
+·                eigenvalue 2 : 5.519679e-04
+·                | u_norm : 1.000000e+00
+·                | r_norm : 8.740394e-09
+·                | 收敛！ : 8.740394e-09
+·                eigenvalue 3 : 8.831437e-04
+·                | u_norm : 1.000000e+00
+·                | r_norm : 1.929120e-08
+·                | 收敛！ : 1.929120e-08
+·                eigenvalue 4 : 1.103887e-03
+·                | u_norm : 1.000000e+00
+·                | r_norm : 1.305816e-08
+·                | 收敛！ : 1.305816e-08
+·                eigenvalue 5 : 1.103887e-03
+·                | u_norm : 1.000000e+00
+·                | r_norm : 2.936283e-08
+·                | 收敛！ : 2.936283e-08
+·                eigenvalue 6 : 1.435063e-03
+·                | u_norm : 1.000000e+00
+·                | r_norm : 9.277881e-08
+·                | 收敛！ : 9.277881e-08
+·                eigenvalue 7 : 1.435063e-03
+·                | u_norm : 1.000000e+00
+·                | r_norm : 2.041256e-07
+·                eigenvalue 8 : 1.876488e-03
+·                | u_norm : 1.000000e+00
+·                | r_norm : 2.972707e-07
+·                eigenvalue 9 : 1.876488e-03
+·                | u_norm : 1.000000e+00
+·                | r_norm : 5.820346e-07
+·                eigenvalue 10 : 1.986982e-03
+·                | u_norm : 1.000000e+00
+·                | r_norm : 3.991809e-07
+·                eigenvalue 11 : 2.207664e-03
+·                | u_norm : 1.000000e+00
+·                | r_norm : 1.031779e-06
+·                eigenvalue 12 : 2.207665e-03
+·                | u_norm : 1.000000e+00
+·                | r_norm : 3.003622e-06
+·                eigenvalue 13 : 2.759588e-03
+·                | u_norm : 1.000000e+00
+·                | r_norm : 1.101165e-05
+·                eigenvalue 14 : 2.759590e-03
+·                | u_norm : 1.000001e+00
+·                | r_norm : 1.286148e-05
+·                eigenvalue 15 : 2.869689e-03
+·                | u_norm : 1.000000e+00
+·                | r_norm : 7.873686e-06
+·                eigenvalue 16 : 2.869956e-03
+·                | u_norm : 1.000025e+00
+·                | r_norm : 7.470089e-05
+·                eigenvalue 17 : 3.201370e-03
+·                | u_norm : 1.000048e+00
+·                | r_norm : 1.022764e-04
+·                eigenvalue 18 : 3.210689e-03
+·                | u_norm : 1.000537e+00
+·                | r_norm : 3.517229e-04
+·                eigenvalue 19 : 3.732103e-03
+·                | u_norm : 1.000974e+00
+·                | r_norm : 4.846265e-04
+[error estimate] No.6 和 No.7 判定重根！
+[error estimate] final conv_nev = 6
+
+-------- cycle [4] ----------
+
+(0) pre-smoothing:
+-   smooth_level : 0
+-   max_pre_count : 2
+-   nlock_smooth : 6
+-   smooth_type : BCG
+-   pre-smoothing time : 3.242482 sec
+
+(1) aux space setup:
+-   nlock_direct : 0
+-   setup solution time : 0.000202 sec
+-   nlock_auxmat_A : 0
+···· [ Level 0 ] --> [ Level 1 ] ····
+···· [ Level 1 ] --> [ Level 2 ] ····
+-   setup A time : 0.147261 sec
+-   nlock_auxmat_B : 0
+···· [ Level 0 ] --> [ Level 1 ] ····
+···· [ Level 1 ] --> [ Level 2 ] ····
+-   setup B time : 2.039501 sec
+-   B preconditioner [ON]
+-   B precondition time : 0.392811 sec
+-   A preconditioner [OFF]
+
+-   build aux space time : 2.580537 sec
+
+(2) aux solver:
+[aux direct solve] level :
+[aux direct solve] gcg设置:
+·                  nevConv    = 10 
+·                  block_size = 5 
+·                  nevMax     = 20 
+·                  nevGiven   = 20 
+·                  gapMin     = 1.000000e-05 
+sizeX = 20, nevGiven = 20, mgs
+[aux direct solve] gcg结果:
+·                  nevConv    = 10 
+·                  eigs[ 0]   = 2.207920e-04 
+·                  eigs[ 1]   = 5.519679e-04 
+·                  eigs[ 2]   = 5.519679e-04 
+·                  eigs[ 3]   = 8.831437e-04 
+·                  eigs[ 4]   = 1.103887e-03 
+·                  eigs[ 5]   = 1.103887e-03 
+·                  eigs[ 6]   = 1.435063e-03 
+·                  eigs[ 7]   = 1.435063e-03 
+·                  eigs[ 8]   = 1.876488e-03 
+·                  eigs[ 9]   = 1.876488e-03 
+·                  eigs[10]   = 1.986982e-03 
+·                  eigs[11]   = 2.207664e-03 
+·                  eigs[12]   = 2.207664e-03 
+·                  eigs[13]   = 2.759584e-03 
+·                  eigs[14]   = 2.759585e-03 
+·                  eigs[15]   = 2.869687e-03 
+·                  eigs[16]   = 2.869762e-03 
+·                  eigs[17]   = 3.200992e-03 
+·                  eigs[18]   = 3.205840e-03 
+·                  eigs[19]   = 3.720670e-03 
+
+-   aux solver time : 1.310366 sec
+
+(3) prolong to fine level:
+···· [ Level 2 ] --> [ Level 0 ] ····
+-   prolong time : 0.158965 sec
+
+(4) post smoothing:
+-   smooth_level : 0
+-   max_pre_count : 2
+-   nlock_smooth : 6
+-   smooth_type : BCG
+-   post-smoothing time : 40.519759 sec
+
+
+------------------------------
+[error estimate] cycle 4
+·                conv_nev = 6
+·                eigenvalue 0 : 2.207920e-04
+·                | u_norm : 1.000000e+00
+·                | r_norm : 6.166382e-08
+·                | 收敛！ : 6.166382e-08
+·                eigenvalue 1 : 5.519679e-04
+·                | u_norm : 1.000000e+00
+·                | r_norm : 6.168167e-09
+·                | 收敛！ : 6.168167e-09
+·                eigenvalue 2 : 5.519679e-04
+·                | u_norm : 1.000000e+00
+·                | r_norm : 8.740394e-09
+·                | 收敛！ : 8.740394e-09
+·                eigenvalue 3 : 8.831437e-04
+·                | u_norm : 1.000000e+00
+·                | r_norm : 1.929120e-08
+·                | 收敛！ : 1.929120e-08
+·                eigenvalue 4 : 1.103887e-03
+·                | u_norm : 1.000000e+00
+·                | r_norm : 1.305816e-08
+·                | 收敛！ : 1.305816e-08
+·                eigenvalue 5 : 1.103887e-03
+·                | u_norm : 1.000000e+00
+·                | r_norm : 2.936283e-08
+·                | 收敛！ : 2.936283e-08
+·                eigenvalue 6 : 1.435063e-03
+·                | u_norm : 1.000000e+00
+·                | r_norm : 1.331841e-08
+·                | 收敛！ : 1.331841e-08
+·                eigenvalue 7 : 1.435063e-03
+·                | u_norm : 1.000000e+00
+·                | r_norm : 3.552307e-08
+·                | 收敛！ : 3.552307e-08
+·                eigenvalue 8 : 1.876488e-03
+·                | u_norm : 1.000000e+00
+·                | r_norm : 5.366781e-08
+·                | 收敛！ : 5.366781e-08
+·                eigenvalue 9 : 1.876488e-03
+·                | u_norm : 1.000000e+00
+·                | r_norm : 1.096560e-07
+·                eigenvalue 10 : 1.986982e-03
+·                | u_norm : 1.000000e+00
+·                | r_norm : 9.929136e-08
+·                eigenvalue 11 : 2.207664e-03
+·                | u_norm : 1.000000e+00
+·                | r_norm : 2.436423e-07
+·                eigenvalue 12 : 2.207664e-03
+·                | u_norm : 1.000000e+00
+·                | r_norm : 8.528778e-07
+·                eigenvalue 13 : 2.759584e-03
+·                | u_norm : 1.000000e+00
+·                | r_norm : 3.912632e-06
+·                eigenvalue 14 : 2.759585e-03
+·                | u_norm : 1.000000e+00
+·                | r_norm : 5.975160e-06
+·                eigenvalue 15 : 2.869687e-03
+·                | u_norm : 1.000000e+00
+·                | r_norm : 3.303831e-06
+·                eigenvalue 16 : 2.869762e-03
+·                | u_norm : 1.000007e+00
+·                | r_norm : 3.931411e-05
+·                eigenvalue 17 : 3.200992e-03
+·                | u_norm : 1.000012e+00
+·                | r_norm : 5.119369e-05
+·                eigenvalue 18 : 3.205840e-03
+·                | u_norm : 1.000274e+00
+·                | r_norm : 2.482049e-04
+·                eigenvalue 19 : 3.720670e-03
+·                | u_norm : 1.001335e+00
+·                | r_norm : 5.622221e-04
+[error estimate] No.8 和 No.9 判定重根！
+[error estimate] final conv_nev = 8
+=================================================
+
+
+=============================================================
+  0-th eig=2.20792018e-04, abs_res = 6.16638214e-08
+  1-th eig=5.51967858e-04, abs_res = 6.16816658e-09
+  2-th eig=5.51967858e-04, abs_res = 8.74039352e-09
+  3-th eig=8.83143698e-04, abs_res = 1.92912002e-08
+  4-th eig=1.10388697e-03, abs_res = 1.30581605e-08
+  5-th eig=1.10388697e-03, abs_res = 2.93628280e-08
+  6-th eig=1.43506281e-03, abs_res = 1.33184118e-08
+  7-th eig=1.43506281e-03, abs_res = 3.55230734e-08
+  8-th eig=1.87648842e-03, abs_res = 5.36678138e-08
+  9-th eig=1.87648842e-03, abs_res = 1.09656004e-07
+ 10-th eig=1.98698192e-03, abs_res = 9.92913630e-08
+ 11-th eig=2.20766426e-03, abs_res = 2.43642301e-07
+ 12-th eig=2.20766428e-03, abs_res = 8.52877823e-07
+ 13-th eig=2.75958387e-03, abs_res = 3.91263173e-06
+ 14-th eig=2.75958492e-03, abs_res = 5.97516038e-06
+ 15-th eig=2.86968733e-03, abs_res = 3.30383084e-06
+ 16-th eig=2.86976244e-03, abs_res = 3.93141073e-05
+ 17-th eig=3.20099245e-03, abs_res = 5.11936891e-05
+ 18-th eig=3.20584039e-03, abs_res = 2.48204948e-04
+ 19-th eig=3.72066992e-03, abs_res = 5.62222107e-04
+=============================================================
+· solver setup time         = 5.874333 seconds
+· get initvec time          = 10.085328 seconds
+· smooth time               = 41.409469 seconds
+· build aux time            = 5.676447 seconds
+· prolong time              = 1.048675 seconds
+· error estimate time       = 0.339032 seconds
+· aux direct solve time     = 19.081646 seconds
+· precondition time         = 1.382091 seconds
+· total solve time          = 77.646097 seconds
+· total time                = 83.520702 seconds
+=============================================================

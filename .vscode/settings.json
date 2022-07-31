@@ -1,0 +1,18 @@
+{
+    "files.associations": {
+        "ops_eig_sol_gcg.h": "c",
+        "array": "c",
+        "deque": "c",
+        "list": "c",
+        "string": "c",
+        "unordered_map": "c",
+        "vector": "c",
+        "initializer_list": "c",
+        "random": "c",
+        "*.tcc": "c",
+        "stdio.h": "c",
+        "typeindex": "c",
+        "typeinfo": "c",
+        "app_slepc.h": "c"
+    }
+}

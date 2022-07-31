@@ -1,0 +1,73 @@
+length_dbl_ws = 6400
+length_int_ws = 326
+mat A:
+mat B:
+===============================================
+GCG Eigen Solver
+
+Usage: ./TestGCGE [<options>]
+---------------------------------------------------------------------------------------------------
+ -gcge_max_multi    <i>: maximum of multiplicity of eigenpairs       1 (default: 6)
+ -gcge_min_gap      <f>: minimum of gap of eigenvalues relatively    1.00e-05 (default: 1e-2)
+---------------------------------------------------------------------------------------------------
+ -gcge_max_niter    <i>: maximum of gcg iterations                   500 (default: 100)
+ -gcge_given_nevec  <i>: number of given initial eigenvectors        0 (default: 0)
+ -gcge_abs_tol      <f>: absolute convergence tolerance              1.00e-01 (default: 1e-4)
+ -gcge_rel_tol      <f>: relative convergence tolerance              1.00e-08 (default: 1e-4)
+---------------------------------------------------------------------------------------------------
+ -gcge_user_defined_multi_lin_sol  <i>: use user-defined multi linear solver  0 (default: 0[1])
+---------------------------------------------------------------------------------------------------
+ -gcge_initX_orth_method  <s>: use which kind of orthogonalization for X  mgs (default: mgs[bgs])
+ -gcge_compP_orth_method  <s>: use which kind of orthogonalization for P  mgs (default: bqr[bgs|mgs])
+ -gcge_compW_orth_method  <s>: use which kind of orthogonalization for W  mgs (default: mgs[bgs])
+---------------------------------------------------------------------------------------------------
+ -gcge_initX_orth_block_size  <i>: size of vectors orthogonalized in one patch for X  -1 (default: -1)
+ -gcge_compP_orth_block_size  <i>: size of vectors orthogonalized in one patch for P  -1 (default: -1)
+ -gcge_compW_orth_block_size  <i>: size of vectors orthogonalized in one patch for W  -1 (default: -1)
+---------------------------------------------------------------------------------------------------
+ -gcge_initX_orth_zero_tol  <f>: zero tolerance in orthogonal for X  4.44e-16 (default: 1e-16)
+ -gcge_compP_orth_zero_tol  <f>: zero tolerance in orthogonal for P  4.44e-16 (default: 1e-16)
+ -gcge_compW_orth_zero_tol  <f>: zero tolerance in orthogonal for W  4.44e-16 (default: 1e-16)
+---------------------------------------------------------------------------------------------------
+ -gcge_initX_orth_max_reorth  <i>: maximum reorthogonal times for X  2 (default: 2)
+ -gcge_compP_orth_max_reorth  <i>: maximum reorthogonal times for P  2 (default: 2)
+ -gcge_compW_orth_max_reorth  <i>: maximum reorthogonal times for W  2 (default: 2)
+---------------------------------------------------------------------------------------------------
+ -gcge_compW_cg_max_iter   <i>: maximum number of cg iteration       30 (default: 30)
+ -gcge_compW_cg_rate       <f>: descent rate of residual in cg       1.00e-02 (default: 1e-2)
+ -gcge_compW_cg_tol        <f>: convergence tolerance in cg          1.00e-14 (default: 1e-8)
+ -gcge_compW_cg_tol_type   <s>: type of convergence tolerance in cg  abs (default: abs[rel|user])
+ -gcge_compW_cg_order      <i>: order of krylov space for W in cg    1 (default: 1[2])
+ -gcge_compW_cg_auto_shift <i>: shift automatically in cg            1 (default: 0[1])
+ -gcge_compW_cg_shift      <f>: shift manually in cg                 0.00e+00 (default: 0.0)
+---------------------------------------------------------------------------------------------------
+ -gcge_compRR_min_num  <i>: minimum number for splitting RR eval  -1 (default: 10)
+ -gcge_compRR_min_gap  <f>: minimum gap for splitting RR eval     1.00e-05 (default: 1e-2)
+ -gcge_compRR_tol      <f>: convergence tolerance in RR           4.44e-16 (default: 1e-16)
+---------------------------------------------------------------------------------------------------
+ -gcge_print_orth_zero  <i>: print the zero index in orthogonal      1 (default: 0[1])
+ -gcge_print_split      <i>: print the split information of RR eval  0 (default: 0[1])
+ -gcge_print_conv       <i>: print convergence in each iteration     1 (default: 1[0])
+ -gcge_print_eval       <i>: print the final eigenvalues             1 (default: 1[0])
+ -gcge_print_evec       <i>: print the final eigenvectors            0 (default: 0[1])
+ -gcge_print_time       <i>: print total time of each part           1 (default: 1[0])
+ -gcge_print_usage      <i>: print usage of gcg eigen solver         1 (default: 1[0])
+--------------------------------------------------------------------------------------------------
+nevGiven = 0, nevConv = 50, nevMax = 80, block_size = 10, nevInit = 30
+sizeX = 30, nevGiven = 0, mgs
+------------------------------
+numIter	nevConv
+0	0
+[mpiexec@xie-group] Sending Ctrl-C to processes as requested
+[mpiexec@xie-group] Press Ctrl-C again to force abort
+
+===================================================================================
+=   BAD TERMINATION OF ONE OF YOUR APPLICATION PROCESSES
+=   PID 3307537 RUNNING AT xie-group
+=   EXIT CODE: 2
+=   CLEANING UP REMAINING PROCESSES
+=   YOU CAN IGNORE THE BELOW CLEANUP MESSAGES
+===================================================================================
+YOUR APPLICATION TERMINATED WITH THE EXIT STRING: Interrupt (signal 2)
+This typically refers to a problem with your application.
+Please see the FAQ page for debugging suggestions
