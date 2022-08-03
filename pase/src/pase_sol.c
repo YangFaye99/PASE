@@ -1285,3 +1285,168 @@ int PASE_Mg_print_timer(PASE_MG_SOLVER solver)
         gcge_ops->Printf("=============================================================\n");
     }
 }
+
+int PASE_EigenSolver_GMG(void **A, void **B, void **P, double *eval, void **evec, int nev, PASE_PARAMETER param)
+{
+    // create gcge_ops
+    OPS *gcge_ops;
+    OPS_Create(&gcge_ops);
+    OPS_SLEPC_Set(gcge_ops);
+    OPS_Setup(gcge_ops);
+
+    // create pase_ops
+    PASE_OPS *pase_ops;
+    PASE_OPS_Create(&pase_ops, gcge_ops);
+
+    // create solver
+#if PRINT_INFO
+    gcge_ops->Printf("\n============== [ solver creation ] ==============\n");
+#endif
+    PASE_MG_SOLVER solver = PASE_Mg_solver_create(param, pase_ops);
+#if PRINT_INFO
+    gcge_ops->Printf("=================================================\n\n");
+#endif
+
+    solver->total_time -= gcge_ops->GetWtime();
+#if PRINT_INFO
+    gcge_ops->Printf("=============== [ solver setup ] ================\n");
+#endif
+    /* 需要替换的函数！ */
+    PASE_Mg_set_up_GMG(solver, A, B, P);
+#if PRINT_INFO
+    if (solver->print_level > 0)
+    {
+        PASE_Mg_print_param(solver);
+    }
+    gcge_ops->Printf("=================================================\n\n");
+    gcge_ops->Printf("=================== [ solve ] ===================\n");
+#endif
+    solver->total_solve_time -= gcge_ops->GetWtime();
+    PASE_Mg_solve(solver);
+    solver->total_solve_time += gcge_ops->GetWtime();
+    solver->total_time += gcge_ops->GetWtime();
+#if PRINT_INFO
+    gcge_ops->Printf("=================================================\n\n");
+#endif
+    PASE_Mg_print_timer(solver);
+    PASE_Mg_solver_destroy(solver);
+    return 0;
+}
+
+int PASE_Mg_set_up_GMG(PASE_MG_SOLVER solver, void **A, void **B, void **P)
+{
+    OPS *gcge_ops = solver->gcge_ops;
+    solver->solver_setup_time -= gcge_ops->GetWtime();
+#if PRINT_INFO
+    double multigrid_setup_time = 0.0;
+    double aux_space_setup_time = 0.0;
+#endif
+    /* aux space ops */
+    OPS *pase_ops_to_gcge;
+    OPS_Create(&pase_ops_to_gcge);
+    GCGE_PASE_SetOps(pase_ops_to_gcge, solver->pase_ops);
+    OPS_Setup(pase_ops_to_gcge);
+    solver->pase_ops_to_gcge = pase_ops_to_gcge;
+
+    /* 特征值所需空间 */
+    int max_nev = solver->max_nev;
+    solver->eigenvalues = (double *)calloc(max_nev, sizeof(double));
+    solver->aux_eigenvalues = (double *)calloc(max_nev, sizeof(double));
+    solver->abs_res_norm = (double *)calloc(max_nev, sizeof(double));
+
+#if PRINT_INFO
+    if (solver->print_level > 1)
+    {
+        multigrid_setup_time -= gcge_ops->GetWtime();
+    }
+#endif
+    /* multigrid setup */
+    PASE_MULTIGRID_Create_GMG(&(solver->multigrid), solver->num_levels, A, B, P, solver->pase_nev, gcge_ops);
+    solver->num_levels = solver->multigrid->num_levels;
+    solver->mg_coarsest_level = solver->num_levels - 1;
+    solver->mg_finest_level = 0;
+    solver->aux_coarse_level = solver->multigrid->pase_coarse_level;
+    solver->aux_fine_level = solver->multigrid->pase_fine_level;
+    solver->initial_level = (solver->num_given_eigs == 0) ? solver->aux_coarse_level : solver->initial_level;
+    solver->current_level = solver->initial_level;
+    solver->current_cycle = 0;
+#if PRINT_INFO
+    if (solver->print_level > 1)
+    {
+        multigrid_setup_time += gcge_ops->GetWtime();
+    }
+#endif
+
+    /* 向量矩阵所需空间 */
+    solver->solution = solver->multigrid->solution;
+    solver->cg_rhs = solver->multigrid->cg_rhs;
+    solver->cg_res = solver->multigrid->cg_res;
+    solver->cg_p = solver->multigrid->cg_p;
+    solver->cg_w = solver->multigrid->cg_w;
+    solver->double_tmp = solver->multigrid->double_tmp;
+    solver->int_tmp = solver->multigrid->int_tmp;
+
+#if PRINT_INFO
+    if (solver->print_level > 1)
+    {
+        aux_space_setup_time -= gcge_ops->GetWtime();
+    }
+#endif
+    /* aux space */
+    PASE_Mg_pase_aux_matrix_create(solver);
+    PASE_Mg_pase_aux_vector_create(solver);
+    if (solver->if_precondition)
+    {
+        solver->precondition_time -= gcge_ops->GetWtime();
+        PASE_Mg_pase_aux_matrix_factorization(solver);
+        solver->precondition_time += gcge_ops->GetWtime();
+    }
+    /* 创建aux_gcg需要的空间 */
+    int pase_nev = solver->pase_nev;
+    int user_nev = solver->user_nev;
+    int aux_coarse_level = solver->aux_coarse_level;
+    solver->aux_gcg_mv[0] = (PASE_MultiVector)malloc(sizeof(pase_MultiVector));
+    solver->aux_gcg_mv[0]->num_aux_vec = pase_nev;
+    solver->aux_gcg_mv[0]->num_vec = pase_nev + user_nev;
+    gcge_ops->MultiVecCreateByMat(&(solver->aux_gcg_mv[0]->b_H), pase_nev + user_nev, solver->multigrid->A_array[aux_coarse_level], gcge_ops);
+    solver->aux_gcg_mv[0]->aux_h = (double *)malloc(pase_nev * (pase_nev + user_nev) * sizeof(double));
+    solver->aux_gcg_mv[0]->aux_h_tmp = (double *)malloc(pase_nev * (pase_nev + user_nev) * sizeof(double));
+
+    solver->aux_gcg_mv[1] = (PASE_MultiVector)malloc(sizeof(pase_MultiVector));
+    solver->aux_gcg_mv[1]->num_aux_vec = pase_nev;
+    solver->aux_gcg_mv[1]->num_vec = user_nev;
+    gcge_ops->MultiVecCreateByMat(&(solver->aux_gcg_mv[1]->b_H), user_nev, solver->multigrid->A_array[aux_coarse_level], gcge_ops);
+    solver->aux_gcg_mv[1]->aux_h = (double *)malloc(pase_nev * user_nev * sizeof(double));
+    solver->aux_gcg_mv[1]->aux_h_tmp = (double *)malloc(pase_nev * user_nev * sizeof(double));
+
+    solver->aux_gcg_mv[2] = (PASE_MultiVector)malloc(sizeof(pase_MultiVector));
+    solver->aux_gcg_mv[2]->num_aux_vec = pase_nev;
+    solver->aux_gcg_mv[2]->num_vec = user_nev;
+    gcge_ops->MultiVecCreateByMat(&(solver->aux_gcg_mv[2]->b_H), user_nev, solver->multigrid->A_array[aux_coarse_level], gcge_ops);
+    solver->aux_gcg_mv[2]->aux_h = (double *)malloc(pase_nev * user_nev * sizeof(double));
+    solver->aux_gcg_mv[2]->aux_h_tmp = (double *)malloc(pase_nev * user_nev * sizeof(double));
+
+    solver->aux_gcg_mv[3] = (PASE_MultiVector)malloc(sizeof(pase_MultiVector));
+    solver->aux_gcg_mv[3]->num_aux_vec = pase_nev;
+    solver->aux_gcg_mv[3]->num_vec = user_nev;
+    gcge_ops->MultiVecCreateByMat(&(solver->aux_gcg_mv[3]->b_H), user_nev, solver->multigrid->A_array[aux_coarse_level], gcge_ops);
+    solver->aux_gcg_mv[3]->aux_h = (double *)malloc(pase_nev * user_nev * sizeof(double));
+    solver->aux_gcg_mv[3]->aux_h_tmp = (double *)malloc(pase_nev * user_nev * sizeof(double));
+
+    solver->solver_setup_time += gcge_ops->GetWtime();
+#if PRINT_INFO
+    if (solver->print_level > 1)
+    {
+        aux_space_setup_time += gcge_ops->GetWtime();
+        gcge_ops->Printf("------ timer -------\n");
+        gcge_ops->Printf("[solver setup] 总时间: %f\n", solver->solver_setup_time);
+        gcge_ops->Printf("(1) multigrid setup : %f (%g%%)\n", multigrid_setup_time,
+                         100 * multigrid_setup_time / solver->solver_setup_time);
+        gcge_ops->Printf("(2) aux space setup : %f (%g%%)\n", aux_space_setup_time,
+                         100 * aux_space_setup_time / solver->solver_setup_time);
+        gcge_ops->Printf("------ timer -------\n\n");
+    }
+#endif
+
+    return 0;
+}

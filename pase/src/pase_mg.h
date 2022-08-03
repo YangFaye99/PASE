@@ -40,4 +40,7 @@ int PASE_MULTIGRID_TwoGirdLevel(PASE_MULTIGRID multi_grid);
 int PASE_MULTIGRID_fromItoJ(PASE_MULTIGRID multi_grid, int level_i, int level_j,
                             int *mv_s, int *mv_e, void **pvx_i, void **pvx_j);
 
+/* with OpenFEM multilevel solver */
+int PASE_MULTIGRID_Create_GMG(PASE_MULTIGRID *multi_grid, int num_levels, void **A, void **B, void **P, int pase_nev, OPS *gcge_ops);
+
 #endif

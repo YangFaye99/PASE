@@ -157,4 +157,8 @@ int PASE_Mg_solver_destroy(PASE_MG_SOLVER solver);
 int PASE_Mg_print_param(PASE_MG_SOLVER solver);
 int PASE_Mg_print_timer(PASE_MG_SOLVER solver);
 
+/* with OpenFEM multilevel solver */
+int PASE_EigenSolver_GMG(void **A, void **B, void **P, double *eval, void **evec, int nev, PASE_PARAMETER param);
+int PASE_Mg_set_up_GMG(PASE_MG_SOLVER solver, void **A, void **B, void **P);
+
 #endif
