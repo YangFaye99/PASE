@@ -279,14 +279,18 @@ int PASE_Mg_prolong_from_pase_aux_Solution(PASE_MG_SOLVER solver, int object_lev
 
     void **u_H2h = solver->cg_rhs[object_level];
     void **solution = solver->solution[object_level];
-    mv_s[0] = nlock_direct;
+    mv_s[0] = conv_nev;
     mv_e[0] = pase_nev;
-    mv_s[1] = nlock_direct;
+    mv_s[1] = conv_nev;
     mv_e[1] = pase_nev;
     PASE_MULTIGRID_fromItoJ(solver->multigrid,
                             current_level, object_level, mv_s, mv_e, u, u_H2h);
+    mv_s[0] = nlock_direct;
+    mv_e[0] = pase_nev;
+    mv_s[1] = conv_nev;
+    mv_e[1] = pase_nev;
     gcge_ops->MultiVecLinearComb(solution, u_H2h, 0, mv_s, mv_e,
-                                 gamma + nlock_direct * pase_nev, pase_nev, &p_one, 0, gcge_ops);
+                                 gamma + conv_nev * pase_nev, pase_nev, &p_one, 0, gcge_ops);
     BVSetActiveColumns((BV)u_H2h, conv_nev, pase_nev);
     BVSetActiveColumns((BV)solution, conv_nev, pase_nev);
     BVCopy((BV)u_H2h, (BV)solution);
@@ -393,7 +397,7 @@ int PASE_Mg_set_pase_aux_vector(PASE_MG_SOLVER solver)
     void **u = aux_u->b_H;
     double *gamma = aux_u->aux_h;
     int mv_s[2] = {nlock_direct, nlock_direct};
-    int mv_e[2] = {pase_nev, pase_nev};
+    int mv_e[2] = {pase_nev - nlock_direct, pase_nev - nlock_direct};
 
     gcge_ops->MultiVecAxpby(0.0, u, 0.0, u, mv_s, mv_e, gcge_ops);
     int num = pase_nev * (pase_nev - nlock_direct);
@@ -484,6 +488,7 @@ int PASE_Mg_set_pase_aux_matrix(PASE_MG_SOLVER solver)
             alpha[j * pase_nev + i] = alpha[i * pase_nev + j];
         }
     }
+    solver->nlock_auxmat_A = solver->conv_nev;
 #if PRINT_INFO
     timer_end = gcge_ops->GetWtime();
     gcge_ops->Printf("-   setup A time : %f sec\n", timer_end - timer_start);
@@ -525,6 +530,7 @@ int PASE_Mg_set_pase_aux_matrix(PASE_MG_SOLVER solver)
             beta[j * pase_nev + i] = beta[i * pase_nev + j];
         }
     }
+    solver->nlock_auxmat_B = solver->conv_nev;
 #if PRINT_INFO
     timer_end = gcge_ops->GetWtime();
     gcge_ops->Printf("-   setup B time : %f sec\n", timer_end - timer_start);

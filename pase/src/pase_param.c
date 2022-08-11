@@ -31,7 +31,7 @@ void PASE_PARAMETER_Create(PASE_PARAMETER *param, int num_levels, int nev)
     (*param)->aux_rtol = 1e-8;
 
     (*param)->multigrid_type = 0;
-    (*param)->if_precondition = 1;
+    (*param)->if_precondition = 0;
     (*param)->print_level = 2;
 }
 
