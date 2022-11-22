@@ -10,11 +10,11 @@ typedef struct PASE_PARAMETER_PRIVATE_
     int num_levels;
     /* 初始层 */
     int initial_level;
-    /* 多重网格最粗层 */
+    /* 多重网格最粗层, num_levels-1, 几乎没用到 */
     int mg_coarsest_level;
-    /* 多重网格最细层 */
+    /* 多重网格最细层, 0, 几乎没用到 */
     int mg_finest_level;
-    /* 辅助空间粗层 */
+    /* 辅助空间粗层, 根据情况选取的粗空间层数 */
     int aux_coarse_level;
     /* 辅助空间细层 */
     int aux_fine_level;
@@ -27,7 +27,7 @@ typedef struct PASE_PARAMETER_PRIVATE_
     int max_post_count;
     /* 辅助空间gcg的迭代次数参数 */
     int max_direct_count;
-    /* 初始求解gcg的迭代次数参数 */
+    /* 求解初值gcg的迭代次数参数 */
     int max_initial_direct_count;
     //============================================
     /* 要求的特征对个数 */

@@ -1,0 +1,72 @@
+mpirun -np 10   ./test0.exe 
+[MatrixRead] matrix size: 90000 x 90000
+sol: 90000 x 10 
+rhs: 90000 x 10 
+sol: 90000 x 10 
+rhs: 90000 x 10 
+sol: 90000 x 10 
+rhs: 90000 x 10 
+sol: 90000 x 10 
+rhs: 90000 x 10 
+sol: 90000 x 10 
+rhs: 90000 x 10 
+sol: 90000 x 10 
+rhs: 90000 x 10 
+sol: 90000 x 10 
+rhs: 90000 x 10 
+sol: 90000 x 10 
+rhs: 90000 x 10 
+sol: 90000 x 10 
+rhs: 90000 x 10 
+sol: 90000 x 10 
+rhs: 90000 x 10 
+sol: 90000 x 100 
+rhs: 90000 x 100 
+sol: 90000 x 100 
+rhs: 90000 x 100 
+sol: 90000 x 100 
+rhs: 90000 x 100 
+sol: 90000 x 100 
+rhs: 90000 x 100 
+sol: 90000 x 100 
+rhs: 90000 x 100 
+sol: 90000 x 100 
+rhs: 90000 x 100 
+sol: 90000 x 100 
+rhs: 90000 x 100 
+sol: 90000 x 100 
+rhs: 90000 x 100 
+sol: 90000 x 100 
+rhs: 90000 x 100 
+sol: 90000 x 100 
+rhs: 90000 x 100 
+sol: 90000 x 80 
+rhs: 90000 x 80 
+sol: 90000 x 80 
+rhs: 90000 x 80 
+sol: 90000 x 80 
+rhs: 90000 x 80 
+sol: 90000 x 80 
+rhs: 90000 x 80 
+sol: 90000 x 80 
+rhs: 90000 x 80 
+sol: 90000 x 80 
+rhs: 90000 x 80 
+sol: 90000 x 80 
+rhs: 90000 x 80 
+sol: 90000 x 80 
+rhs: 90000 x 80 
+sol: 90000 x 80 
+rhs: 90000 x 80 
+sol: 90000 x 80 
+rhs: 90000 x 80 
+total time: 4.01024
+total time: 4.01018
+total time: 4.01047
+total time: 4.01068
+total time: 4.01099
+total time: 4.01103
+total time: 4.01161
+total time: 4.01252
+total time: 4.01248
+total time: 4.01332

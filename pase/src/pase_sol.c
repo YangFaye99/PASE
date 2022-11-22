@@ -11,6 +11,7 @@ double m_one = -1.0;
 double timer_start, timer_end;
 
 int A_pre = 0;
+static int check_point = 0;
 
 int PASE_EigenSolver(void *A, void *B, double *eval, void **evec, int nev, PASE_PARAMETER param)
 {
@@ -134,7 +135,6 @@ int PASE_Mg_error_estimate(PASE_MG_SOLVER solver)
         mv_e[1] = 01;
         gcge_ops->MatDotMultiVec(B, solution, rhs, mv_s, mv_e, gcge_ops);
         gcge_ops->MultiVecInnerProd('D', solution, rhs, 0, mv_s, mv_e, &u_norm, 1, gcge_ops);
-        // DefaultMultiVecInnerProd('D', solution, rhs, 0, mv_s, mv_e, &u_norm, 1, gcge_ops);
         u_norm = sqrt(u_norm);
 #if PRINT_INFO
         gcge_ops->Printf("·                eigenvalue %d : %e\n", idx_eig, eigenvalue[idx_eig]);
@@ -397,7 +397,7 @@ int PASE_Mg_set_pase_aux_vector(PASE_MG_SOLVER solver)
     void **u = aux_u->b_H;
     double *gamma = aux_u->aux_h;
     int mv_s[2] = {nlock_direct, nlock_direct};
-    int mv_e[2] = {pase_nev - nlock_direct, pase_nev - nlock_direct};
+    int mv_e[2] = {pase_nev, pase_nev};
 
     gcge_ops->MultiVecAxpby(0.0, u, 0.0, u, mv_s, mv_e, gcge_ops);
     int num = pase_nev * (pase_nev - nlock_direct);
@@ -411,7 +411,7 @@ int PASE_Mg_set_pase_aux_vector(PASE_MG_SOLVER solver)
     {
         int current_level = solver->current_level;
         int aux_level = solver->aux_coarse_level;
-        memset(gamma, 0.0, nlock_direct * pase_nev * sizeof(double));
+        memset(gamma, 0, nlock_direct * pase_nev * sizeof(double));
         mv_s[0] = 0;
         mv_e[0] = nlock_direct;
         mv_s[1] = 0;
@@ -425,17 +425,22 @@ int PASE_Mg_set_pase_aux_vector(PASE_MG_SOLVER solver)
 #endif
 }
 
-static int LUfactor_Solve(PASE_MG_SOLVER solver, PASE_Matrix aux_Mat)
+static int LUfactor_Solve(PASE_MG_SOLVER solver, PASE_Matrix aux_Mat, int nlock)
 {
     KSP ksp = (KSP)(aux_Mat->factorization);
     void **sol = aux_Mat->AH_inv_aux_Hh;
     void **rhs = aux_Mat->aux_Hh;
     Mat solmat, rhsmat;
-    int pase_nev = solver->pase_nev;
+    int pase_nev = solver->pase_nev-nlock;
     BVSetActiveColumns((BV)sol, 0, pase_nev);
     BVSetActiveColumns((BV)rhs, 0, pase_nev);
     BVGetMat((BV)sol, &solmat);
     BVGetMat((BV)rhs, &rhsmat);
+    int m, n;
+    MatGetSize(solmat, &m, &n);
+    solver->gcge_ops->Printf("sol: %d x %d \n", m, n);
+    MatGetSize(rhsmat, &m, &n);
+    solver->gcge_ops->Printf("rhs: %d x %d \n", m, n);
     KSPMatSolve(ksp, (Mat)rhsmat, (Mat)solmat);
     BVRestoreMat((BV)sol, &solmat);
     BVRestoreMat((BV)rhs, &rhsmat);
@@ -447,7 +452,7 @@ int PASE_Mg_set_pase_aux_matrix(PASE_MG_SOLVER solver)
     OPS *gcge_ops = solver->gcge_ops;
 
     int pase_nev = solver->pase_nev;
-    int current_level = solver->current_level;
+    int current_level = solver->current_level; //应当为0
     int idx_level, i, j;
     int nlock_auxmat, mv_s[2], mv_e[2];
     void **solution = solver->solution[current_level];
@@ -461,13 +466,13 @@ int PASE_Mg_set_pase_aux_matrix(PASE_MG_SOLVER solver)
     PASE_Matrix aux_A = solver->aux_A;
     void *AH = aux_A->A_H;
     void **a = aux_A->aux_Hh;
-    void **rhs = solver->cg_rhs[current_level];
+    void **A_hU = solver->cg_rhs[current_level];
     nlock_auxmat = solver->nlock_auxmat_A;
     mv_s[0] = nlock_auxmat;
     mv_s[1] = nlock_auxmat;
     mv_e[0] = pase_nev;
     mv_e[1] = pase_nev;
-    gcge_ops->MatDotMultiVec(Ah, solution, rhs, mv_s, mv_e, gcge_ops);
+    gcge_ops->MatDotMultiVec(Ah, solution, A_hU, mv_s, mv_e, gcge_ops);
     for (idx_level = current_level; idx_level < solver->aux_coarse_level; idx_level++)
     {
         PASE_MULTIGRID_fromItoJ(solver->multigrid, idx_level, idx_level + 1, mv_s, mv_e, solver->cg_rhs[idx_level], solver->cg_rhs[idx_level + 1]);
@@ -478,9 +483,7 @@ int PASE_Mg_set_pase_aux_matrix(PASE_MG_SOLVER solver)
     mv_s[1] = nlock_auxmat;
     mv_e[1] = pase_nev;
     double *alpha = aux_A->aux_hh;
-    gcge_ops->MultiVecQtAP('N', 'N', solution, Ah, solution, 0, mv_s, mv_e,
-                           alpha + nlock_auxmat * pase_nev, pase_nev,
-                           solver->cg_res[current_level], gcge_ops);
+    gcge_ops->MultiVecInnerProd('N', solution, A_hU, 0, mv_s, mv_e, alpha + nlock_auxmat * pase_nev, pase_nev, gcge_ops);
     for (i = nlock_auxmat; i < pase_nev; i++)
     {
         for (j = 0; j < nlock_auxmat; j++)
@@ -488,7 +491,6 @@ int PASE_Mg_set_pase_aux_matrix(PASE_MG_SOLVER solver)
             alpha[j * pase_nev + i] = alpha[i * pase_nev + j];
         }
     }
-    solver->nlock_auxmat_A = solver->conv_nev;
 #if PRINT_INFO
     timer_end = gcge_ops->GetWtime();
     gcge_ops->Printf("-   setup A time : %f sec\n", timer_end - timer_start);
@@ -503,26 +505,26 @@ int PASE_Mg_set_pase_aux_matrix(PASE_MG_SOLVER solver)
     PASE_Matrix aux_B = solver->aux_B;
     void *BH = aux_B->A_H;
     void **b = aux_B->aux_Hh;
-    rhs = solver->cg_p[current_level];
+    void **B_hU = solver->cg_p[current_level];
     nlock_auxmat = solver->nlock_auxmat_B;
+    nlock_auxmat = 0;
     mv_s[0] = nlock_auxmat;
     mv_s[1] = nlock_auxmat;
     mv_e[0] = pase_nev;
     mv_e[1] = pase_nev;
-    gcge_ops->MatDotMultiVec(Bh, solution, rhs, mv_s, mv_e, gcge_ops);
+    gcge_ops->MatDotMultiVec(Bh, solution, B_hU, mv_s, mv_e, gcge_ops);
     for (idx_level = current_level; idx_level < solver->aux_coarse_level; idx_level++)
     {
         PASE_MULTIGRID_fromItoJ(solver->multigrid, idx_level, idx_level + 1, mv_s, mv_e, solver->cg_p[idx_level], solver->cg_p[idx_level + 1]);
     }
     /* beta in aux_B */
+    nlock_auxmat = 0;
     mv_s[0] = 0;
     mv_e[0] = pase_nev;
     mv_s[1] = nlock_auxmat;
     mv_e[1] = pase_nev;
     double *beta = aux_B->aux_hh;
-    gcge_ops->MultiVecQtAP('N', 'N', solution, Bh, solution, 0, mv_s, mv_e,
-                           beta + nlock_auxmat * pase_nev, pase_nev,
-                           solver->cg_w[current_level], gcge_ops);
+    gcge_ops->MultiVecInnerProd('N', solution, B_hU, 0, mv_s, mv_e, beta + nlock_auxmat * pase_nev, pase_nev, gcge_ops);
     for (i = nlock_auxmat; i < pase_nev; i++)
     {
         for (j = 0; j < nlock_auxmat; j++)
@@ -530,7 +532,6 @@ int PASE_Mg_set_pase_aux_matrix(PASE_MG_SOLVER solver)
             beta[j * pase_nev + i] = beta[i * pase_nev + j];
         }
     }
-    solver->nlock_auxmat_B = solver->conv_nev;
 #if PRINT_INFO
     timer_end = gcge_ops->GetWtime();
     gcge_ops->Printf("-   setup B time : %f sec\n", timer_end - timer_start);
@@ -539,25 +540,28 @@ int PASE_Mg_set_pase_aux_matrix(PASE_MG_SOLVER solver)
     /* preconditioner in B */
     if (solver->if_precondition == 1 || solver->if_precondition == 3)
     {
+        check_point = solver->current_cycle;
         solver->precondition_time -= gcge_ops->GetWtime();
 #if PRINT_INFO
         timer_start = gcge_ops->GetWtime();
         gcge_ops->Printf("-   B preconditioner [ON]\n");
 #endif
-        LUfactor_Solve(solver, aux_B);
+        nlock_auxmat = solver->nlock_auxmat_B;
+        LUfactor_Solve(solver, aux_B, nlock_auxmat);
         //处理B
         aux_B->is_diag = 1;
-        nlock_auxmat = solver->nlock_auxmat_B;
-        double *B_inpd = solver->double_tmp;
+        double *B_inpd = aux_B->aux_hh_inv;
         void **BH_inv_b = aux_B->AH_inv_aux_Hh;
-        mv_s[0] = 0;
+        mv_s[0] = nlock_auxmat;
         mv_e[0] = pase_nev;
-        mv_s[1] = 0;
+        mv_s[1] = nlock_auxmat;
         mv_e[1] = pase_nev;
         gcge_ops->MultiVecInnerProd('N', b, BH_inv_b, 0, mv_s, mv_e, B_inpd, pase_nev, gcge_ops);
         int num = pase_nev * pase_nev;
         daxpy(&num, &m_one, B_inpd, &i_one, beta, &i_one);
         //处理A
+        nlock_auxmat = 0;
+        b = solver->aux_gcg_mv[0]->b_H;
         gcge_ops->MatDotMultiVec(AH, BH_inv_b, b, mv_s, mv_e, gcge_ops);
         mv_s[0] = 0;
         mv_e[0] = pase_nev;
@@ -605,7 +609,7 @@ int PASE_Mg_set_pase_aux_matrix(PASE_MG_SOLVER solver)
         timer_start = gcge_ops->GetWtime();
         gcge_ops->Printf("-   A preconditioner [ON]\n");
 #endif
-        LUfactor_Solve(solver, aux_A);
+        LUfactor_Solve(solver, aux_A, 0);
         //处理A
         nlock_auxmat = solver->nlock_auxmat_A;
         double *alpha_inv = aux_A->aux_hh_inv;
@@ -615,7 +619,6 @@ int PASE_Mg_set_pase_aux_matrix(PASE_MG_SOLVER solver)
         mv_s[1] = 0;
         mv_e[1] = pase_nev;
         gcge_ops->MultiVecInnerProd('N', a, AH_inv_a, 0, mv_s, mv_e, alpha_inv, pase_nev, gcge_ops);
-        // DefaultMultiVecInnerProd('N', a, AH_inv_a, 0, mv_s, mv_e, alpha_inv, pase_nev, gcge_ops);
         int num = pase_nev * pase_nev;
         dscal(&num, &m_one, alpha_inv, &i_one);
         daxpy(&num, &p_one, alpha, &i_one, alpha_inv, &i_one);
@@ -639,6 +642,8 @@ int PASE_Mg_set_pase_aux_matrix(PASE_MG_SOLVER solver)
         gcge_ops->Printf("-   A preconditioner [OFF]\n");
     }
 #endif
+    solver->nlock_auxmat_A = solver->conv_nev;
+    solver->nlock_auxmat_B = solver->conv_nev;
 }
 
 static void smoothing_bcg(PASE_MG_SOLVER solver)

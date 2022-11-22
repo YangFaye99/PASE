@@ -197,11 +197,11 @@ void PASE_Diag_BlockPCG(void *mat, void **mv_b, void **mv_x,
     void **A_inv_a = paseA->AH_inv_aux_Hh;
     double *alpha_inv = paseA->aux_hh_inv;
     PASE_MultiVector paseb = (PASE_MultiVector)mv_b;
-    void *b = paseb->b_H;
+    void **b = paseb->b_H;
     double *beta = paseb->aux_h;
     double *beta_tmp = paseb->aux_h_tmp;
     PASE_MultiVector pasex = (PASE_MultiVector)mv_x;
-    void *x = pasex->b_H;
+    void **x = pasex->b_H;
     double *gamma = pasex->aux_h;
 
     int size = paseA->num_aux_vec;
@@ -213,10 +213,15 @@ void PASE_Diag_BlockPCG(void *mat, void **mv_b, void **mv_x,
     int mv_e[2] = {paseA->num_aux_vec, end_bx[0]};
     char charN = 'N';
     gcge_ops->MultiVecInnerProd('N', A_inv_a, b, 0, mv_s, mv_e, beta_tmp, paseA->num_aux_vec, gcge_ops);
-    daxpy(&num, &m_one, beta_tmp, &i_one, beta + (start_bx[0] * paseb->num_aux_vec), &i_one);
-    dgemm(&charN, &charN, &size, &length, &size, &p_one, alpha_inv, &size,
-          beta + (start_bx[0] * size), &size, &zero, gamma + (start_bx[1] * size), &size);
+    dscal(&num, &m_one, beta_tmp, &i_one);
+    daxpy(&num, &p_one, beta + (start_bx[0] * paseb->num_aux_vec), &i_one, beta_tmp, &i_one);
 
+
+
+
+
+    dgemm(&charN, &charN, &size, &length, &size, &p_one, alpha_inv, &size,
+          beta_tmp, &size, &zero, gamma + (start_bx[1] * size), &size);
     PASE_BlockPCGSolver *pase_bpcg = (PASE_BlockPCGSolver *)(pase_ops_to_gcge->multi_linear_solver_workspace);
     PASE_MultiVector pase_mv_ws[3];
     pase_mv_ws[0] = (PASE_MultiVector)(pase_bpcg->mv_ws[0]);
@@ -233,17 +238,64 @@ void PASE_Diag_BlockPCG(void *mat, void **mv_b, void **mv_x,
     gcge_ops->MultiLinearSolver(A, b, x, start_bx, end_bx, gcge_ops);
     pase_app_gcge_flag = 0;
 
-    const double *A_inv_a_tmp, *x_tmp;
+    double *A_inv_a_tmp, *x_tmp;
     int nrows, ncols;
-    BVGetArrayRead((BV)A_inv_a, &A_inv_a_tmp);
-    BVGetArrayRead((BV)x, &x_tmp);
+    BVGetArray((BV)A_inv_a, &A_inv_a_tmp); // A_H^{-1} * ah
+    BVSetActiveColumns((BV)x, start_bx[1], end_bx[1]);
+    BVGetArray((BV)x, &x_tmp);
+    // double *temp_x = (double *)x;
     BVGetSizes((BV)A_inv_a, &nrows, NULL, &ncols);
     dgemm(&charN, &charN, &nrows, &length, &ncols, &m_one,
           (double *)A_inv_a_tmp, &nrows, gamma + (start_bx[1] * size), &size,
-          &p_one, (double *)x_tmp + (start_bx[1] * nrows), &nrows);
-    BVRestoreArrayRead((BV)A_inv_a, &A_inv_a_tmp);
-    BVRestoreArrayRead((BV)x, &x_tmp);
+          &p_one, beta_tmp, &nrows); // wzj AH^{-1} * a_h * \gamma
+    int tmp_length = nrows * length;
+    dscal(&tmp_length, &m_one, beta_tmp, &i_one);
+    daxpy(&tmp_length, &p_one, beta_tmp, &i_one, (double *)x_tmp, &i_one);
+    BVRestoreArray((BV)A_inv_a, &A_inv_a_tmp);
+    BVRestoreArray((BV)x, &x_tmp);
 
+    // 检查结果
+    // ops_gcg->Printf("======orVtAV=======\n");
+    // double *debug_dbl_ws = malloc((end[0] - start[0]) * (end[1] - start[1]) * sizeof(double));
+    // void **debug_mv_ws;
+    // ops_gcg->MultiVecCreateByMat(&debug_mv_ws, sizeX + sizeP + sizeW, A, ops_gcg);
+    // ops_gcg->MultiVecQtAP('N','N',V,A,V,0,start,end,
+    //   debug_dbl_ws,sizeX+sizeP+sizeW,debug_mv_ws,ops_gcg);
+    // for (row = 0; row < end[0]-start[0]; ++row) {
+    //  for (col = 0; col < end[1]-start[1]; ++col) {
+    //   ops_gcg->Printf("%6.4f ",debug_dbl_ws[row+col*(end[0]-start[0])]);
+    //  }
+    //  ops_gcg->Printf("\n");
+    // }
+    //   ops_gcg->Printf("VtBV\n");
+    //   ops_gcg->MultiVecQtAP('N','N',V,B,V,0,start,end,
+    //     debug_dbl_ws,sizeX+sizeP+sizeW,debug_mv_ws,ops_gcg);
+    //   for (row = 0; row < end[0]-start[0]; ++row) {
+    //    for (col = 0; col < end[1]-start[1]; ++col) {
+    //     ops_gcg->Printf("%6.4f ",debug_dbl_ws[row+col*(end[0]-start[0])]);
+    //    }
+    //    ops_gcg->Printf("\n");
+    //   }
+    //   free(debug_dbl_ws);
+    //   ops_gcg->MultiVecDestroy(&debug_mv_ws,sizeX+sizeP+sizeW,ops_gcg);
+    // void **check_x;
+    // gcge_ops->MultiVecCreateByMultiVec(&check_x, length, x, gcge_ops);
+    // int start[2] = {start_bx[1], 0};
+    // int end[2] = {end_bx[1], length};
+    // pase_ops->MatDotMultiVec(mat, mv_x, check_x, start, end, pase_ops);
+    // start[0] = start_bx[0];
+    // start[1] = 0;
+    // end[0] = end_bx[0];
+    // end[1] = length;
+    // pase_ops->MultiVecAxpby(1.0, mv_b, -1.0, check_x, start, end, pase_ops);
+    // start[0] = 0;
+    // end[0] = length;
+    // pase_ops->MultiVecInnerProd('D', check_x, check_x, 0, start, end, beta_tmp, 1, pase_ops);
+    // int i;
+    // for (i = 0; i < length; i++)
+    // {
+    //     gcge_ops->Printf("[%d th] %g\n", i, beta_tmp[i * length + i]);
+    // }
 }
 
 void PASE_Diag_BlockPCG_Setup(int max_iter, double rate, double tol,

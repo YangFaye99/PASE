@@ -25,18 +25,18 @@ mpirun -np 10   ./test0.exe
 ·            size of level 4: 18 x 18
 
 ------ timer -------
-[get_amg_array] 总时间: 0.695323
-(1): 调用GAMG获取A_array和P_array时间:0.471917
-(2): 计算B_array时间:                 0.223402
+[get_amg_array] 总时间: 1.006741
+(1): 调用GAMG获取A_array和P_array时间:0.630584
+(2): 计算B_array时间:                 0.376153
 ------ timer -------
 
 [TwoGird] 选择粗层为: Level 2
 [TwoGird] 选择细层为: Level 0
 
 ------ timer -------
-[solver setup] 总时间: 0.703370
-(1) multigrid setup : 0.695393 (98.8658%)
-(2) aux space setup : 0.007976 (1.13391%)
+[solver setup] 总时间: 1.017407
+(1) multigrid setup : 1.006823 (98.9597%)
+(2) aux space setup : 0.010581 (1.03999%)
 ------ timer -------
 
 
@@ -99,7 +99,7 @@ sizeX = 20, nevGiven = 0, mgs
 ·              eigs[18]   = 4.939384e-03 
 ·              eigs[19]   = 5.321655e-03 
 
-[direct solve] get initial vecs time : 1.195732 sec.
+[direct solve] get initial vecs time : 1.458730 sec.
 -------------------------------
 
 ···· [ Level 2 ] --> [ Level 0 ] ····
@@ -111,23 +111,23 @@ sizeX = 20, nevGiven = 0, mgs
 -   max_pre_count : 2
 -   nlock_smooth : 0
 -   smooth_type : BCG
--   pre-smoothing time : 0.603964 sec
+-   pre-smoothing time : 0.858077 sec
 
 (1) aux space setup:
 -   nlock_direct : 0
--   setup solution time : 0.000085 sec
+-   setup solution time : 0.000081 sec
 -   nlock_auxmat_A : 0
 ···· [ Level 0 ] --> [ Level 1 ] ····
 ···· [ Level 1 ] --> [ Level 2 ] ····
--   setup A time : 0.038303 sec
+-   setup A time : 0.057195 sec
 -   nlock_auxmat_B : 0
 ···· [ Level 0 ] --> [ Level 1 ] ····
 ···· [ Level 1 ] --> [ Level 2 ] ····
--   setup B time : 0.033671 sec
+-   setup B time : 0.053238 sec
 -   B preconditioner [OFF]
 -   A preconditioner [OFF]
 
--   build aux space time : 0.072170 sec
+-   build aux space time : 0.110632 sec
 
 (2) aux solver:
 [aux direct solve] level :
@@ -161,18 +161,18 @@ sizeX = 20, nevGiven = 20, mgs
 ·                  eigs[18]   = 3.373876e-03 
 ·                  eigs[19]   = 3.824151e-03 
 
--   aux solver time : 0.952808 sec
+-   aux solver time : 1.446886 sec
 
 (3) prolong to fine level:
 ···· [ Level 2 ] --> [ Level 0 ] ····
--   prolong time : 0.031886 sec
+-   prolong time : 0.053461 sec
 
 (4) post smoothing:
 -   smooth_level : 0
 -   max_pre_count : 2
 -   nlock_smooth : 0
 -   smooth_type : BCG
--   post-smoothing time : 1.192254 sec
+-   post-smoothing time : 1.697639 sec
 
 
 ------------------------------
@@ -247,23 +247,23 @@ sizeX = 20, nevGiven = 20, mgs
 -   max_pre_count : 2
 -   nlock_smooth : 0
 -   smooth_type : BCG
--   pre-smoothing time : 0.593925 sec
+-   pre-smoothing time : 0.856074 sec
 
 (1) aux space setup:
 -   nlock_direct : 0
--   setup solution time : 0.000059 sec
+-   setup solution time : 0.000067 sec
 -   nlock_auxmat_A : 0
 ···· [ Level 0 ] --> [ Level 1 ] ····
 ···· [ Level 1 ] --> [ Level 2 ] ····
--   setup A time : 0.038856 sec
+-   setup A time : 0.057201 sec
 -   nlock_auxmat_B : 0
 ···· [ Level 0 ] --> [ Level 1 ] ····
 ···· [ Level 1 ] --> [ Level 2 ] ····
--   setup B time : 0.035095 sec
+-   setup B time : 0.053175 sec
 -   B preconditioner [OFF]
 -   A preconditioner [OFF]
 
--   build aux space time : 0.074109 sec
+-   build aux space time : 0.110546 sec
 
 (2) aux solver:
 [aux direct solve] level :
@@ -297,18 +297,18 @@ sizeX = 20, nevGiven = 20, mgs
 ·                  eigs[18]   = 3.240285e-03 
 ·                  eigs[19]   = 3.747459e-03 
 
--   aux solver time : 0.780850 sec
+-   aux solver time : 1.176411 sec
 
 (3) prolong to fine level:
 ···· [ Level 2 ] --> [ Level 0 ] ····
--   prolong time : 0.031959 sec
+-   prolong time : 0.053407 sec
 
 (4) post smoothing:
 -   smooth_level : 0
 -   max_pre_count : 2
 -   nlock_smooth : 0
 -   smooth_type : BCG
--   post-smoothing time : 2.363455 sec
+-   post-smoothing time : 3.355552 sec
 
 
 ------------------------------
@@ -383,23 +383,23 @@ sizeX = 20, nevGiven = 20, mgs
 -   max_pre_count : 2
 -   nlock_smooth : 0
 -   smooth_type : BCG
--   pre-smoothing time : 0.608005 sec
+-   pre-smoothing time : 0.852581 sec
 
 (1) aux space setup:
 -   nlock_direct : 0
--   setup solution time : 0.000072 sec
+-   setup solution time : 0.000069 sec
 -   nlock_auxmat_A : 0
 ···· [ Level 0 ] --> [ Level 1 ] ····
 ···· [ Level 1 ] --> [ Level 2 ] ····
--   setup A time : 0.039274 sec
+-   setup A time : 0.057139 sec
 -   nlock_auxmat_B : 0
 ···· [ Level 0 ] --> [ Level 1 ] ····
 ···· [ Level 1 ] --> [ Level 2 ] ····
--   setup B time : 0.033611 sec
+-   setup B time : 0.053168 sec
 -   B preconditioner [OFF]
 -   A preconditioner [OFF]
 
--   build aux space time : 0.073056 sec
+-   build aux space time : 0.110478 sec
 
 (2) aux solver:
 [aux direct solve] level :
@@ -433,18 +433,18 @@ sizeX = 20, nevGiven = 20, mgs
 ·                  eigs[18]   = 3.219973e-03 
 ·                  eigs[19]   = 3.740979e-03 
 
--   aux solver time : 0.562351 sec
+-   aux solver time : 0.831125 sec
 
 (3) prolong to fine level:
 ···· [ Level 2 ] --> [ Level 0 ] ····
--   prolong time : 0.031883 sec
+-   prolong time : 0.053457 sec
 
 (4) post smoothing:
 -   smooth_level : 0
 -   max_pre_count : 2
 -   nlock_smooth : 0
 -   smooth_type : BCG
--   post-smoothing time : 3.536475 sec
+-   post-smoothing time : 5.009638 sec
 
 
 ------------------------------
@@ -522,23 +522,23 @@ sizeX = 20, nevGiven = 20, mgs
 -   max_pre_count : 2
 -   nlock_smooth : 1
 -   smooth_type : BCG
--   pre-smoothing time : 0.576551 sec
+-   pre-smoothing time : 0.827197 sec
 
 (1) aux space setup:
 -   nlock_direct : 0
--   setup solution time : 0.000059 sec
+-   setup solution time : 0.000068 sec
 -   nlock_auxmat_A : 0
 ···· [ Level 0 ] --> [ Level 1 ] ····
 ···· [ Level 1 ] --> [ Level 2 ] ····
--   setup A time : 0.039796 sec
+-   setup A time : 0.058535 sec
 -   nlock_auxmat_B : 0
 ···· [ Level 0 ] --> [ Level 1 ] ····
 ···· [ Level 1 ] --> [ Level 2 ] ····
--   setup B time : 0.034586 sec
+-   setup B time : 0.053852 sec
 -   B preconditioner [OFF]
 -   A preconditioner [OFF]
 
--   build aux space time : 0.074546 sec
+-   build aux space time : 0.112556 sec
 
 (2) aux solver:
 [aux direct solve] level :
@@ -572,18 +572,18 @@ sizeX = 20, nevGiven = 20, mgs
 ·                  eigs[18]   = 3.210505e-03 
 ·                  eigs[19]   = 3.732831e-03 
 
--   aux solver time : 0.427368 sec
+-   aux solver time : 0.644200 sec
 
 (3) prolong to fine level:
 ···· [ Level 2 ] --> [ Level 0 ] ····
--   prolong time : 0.030355 sec
+-   prolong time : 0.050760 sec
 
 (4) post smoothing:
 -   smooth_level : 0
 -   max_pre_count : 2
 -   nlock_smooth : 1
 -   smooth_type : BCG
--   post-smoothing time : 4.658087 sec
+-   post-smoothing time : 6.633682 sec
 
 
 ------------------------------
@@ -666,23 +666,23 @@ sizeX = 20, nevGiven = 20, mgs
 -   max_pre_count : 2
 -   nlock_smooth : 6
 -   smooth_type : BCG
--   pre-smoothing time : 0.425101 sec
+-   pre-smoothing time : 0.634669 sec
 
 (1) aux space setup:
 -   nlock_direct : 0
--   setup solution time : 0.000070 sec
+-   setup solution time : 0.000167 sec
 -   nlock_auxmat_A : 1
 ···· [ Level 0 ] --> [ Level 1 ] ····
 ···· [ Level 1 ] --> [ Level 2 ] ····
--   setup A time : 0.038135 sec
+-   setup A time : 0.058721 sec
 -   nlock_auxmat_B : 1
 ···· [ Level 0 ] --> [ Level 1 ] ····
 ···· [ Level 1 ] --> [ Level 2 ] ····
--   setup B time : 0.033094 sec
+-   setup B time : 0.055755 sec
 -   B preconditioner [OFF]
 -   A preconditioner [OFF]
 
--   build aux space time : 0.071404 sec
+-   build aux space time : 0.114718 sec
 
 (2) aux solver:
 [aux direct solve] level :
@@ -716,18 +716,18 @@ sizeX = 20, nevGiven = 20, mgs
 ·                  eigs[18]   = 3.205796e-03 
 ·                  eigs[19]   = 3.721878e-03 
 
--   aux solver time : 0.366931 sec
+-   aux solver time : 0.567238 sec
 
 (3) prolong to fine level:
 ···· [ Level 2 ] --> [ Level 0 ] ····
--   prolong time : 0.022364 sec
+-   prolong time : 0.037851 sec
 
 (4) post smoothing:
 -   smooth_level : 0
 -   max_pre_count : 2
 -   nlock_smooth : 6
 -   smooth_type : BCG
--   post-smoothing time : 5.479191 sec
+-   post-smoothing time : 7.849166 sec
 
 
 ------------------------------
@@ -812,23 +812,23 @@ sizeX = 20, nevGiven = 20, mgs
 -   max_pre_count : 2
 -   nlock_smooth : 8
 -   smooth_type : BCG
--   pre-smoothing time : 0.356803 sec
+-   pre-smoothing time : 0.530955 sec
 
 (1) aux space setup:
 -   nlock_direct : 0
--   setup solution time : 0.000071 sec
+-   setup solution time : 0.000062 sec
 -   nlock_auxmat_A : 6
 ···· [ Level 0 ] --> [ Level 1 ] ····
 ···· [ Level 1 ] --> [ Level 2 ] ····
--   setup A time : 0.029019 sec
+-   setup A time : 0.042136 sec
 -   nlock_auxmat_B : 6
 ···· [ Level 0 ] --> [ Level 1 ] ····
 ···· [ Level 1 ] --> [ Level 2 ] ····
--   setup B time : 0.025102 sec
+-   setup B time : 0.054633 sec
 -   B preconditioner [OFF]
 -   A preconditioner [OFF]
 
--   build aux space time : 0.054292 sec
+-   build aux space time : 0.096901 sec
 
 (2) aux solver:
 [aux direct solve] level :
@@ -862,18 +862,18 @@ sizeX = 20, nevGiven = 20, mgs
 ·                  eigs[18]   = 3.203358e-03 
 ·                  eigs[19]   = 3.707173e-03 
 
--   aux solver time : 0.312400 sec
+-   aux solver time : 0.468230 sec
 
 (3) prolong to fine level:
 ···· [ Level 2 ] --> [ Level 0 ] ····
--   prolong time : 0.019202 sec
+-   prolong time : 0.032054 sec
 
 (4) post smoothing:
 -   smooth_level : 0
 -   max_pre_count : 2
 -   nlock_smooth : 8
 -   smooth_type : BCG
--   post-smoothing time : 6.171652 sec
+-   post-smoothing time : 8.872101 sec
 
 
 ------------------------------
@@ -978,14 +978,14 @@ sizeX = 20, nevGiven = 20, mgs
  18-th eig=3.20335769e-03, abs_res = 1.81183812e-04
  19-th eig=3.70717269e-03, abs_res = 6.47228734e-04
 =============================================================
-· solver setup time         = 0.703370 seconds
-· get initvec time          = 1.195732 seconds
-· smooth time               = 6.330631 seconds
-· build aux time            = 0.419577 seconds
-· prolong time              = 0.178181 seconds
-· error estimate time       = 0.110592 seconds
-· aux direct solve time     = 3.402707 seconds
+· solver setup time         = 1.017407 seconds
+· get initvec time          = 1.458730 seconds
+· smooth time               = 9.135545 seconds
+· build aux time            = 0.655831 seconds
+· prolong time              = 0.295497 seconds
+· error estimate time       = 0.167247 seconds
+· aux direct solve time     = 5.134090 seconds
 · precondition time         = 0.000000 seconds
-· total solve time          = 11.638418 seconds
-· total time                = 12.341964 seconds
+· total solve time          = 16.847934 seconds
+· total time                = 17.865499 seconds
 =============================================================
